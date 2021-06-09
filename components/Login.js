@@ -112,7 +112,7 @@ function Login({ navigation }) {
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Username"}
+          textLabel={"USERNAME"}
           inputBox={styles.TextInputWrapper}
           inputStyleText={styles.TextInput}
           setChange={handleUserChange}
@@ -129,7 +129,7 @@ function Login({ navigation }) {
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Password"}
+          textLabel={"PASSWORD"}
           inputBox={styles.TextInputWrapper}
           inputStyleText={styles.TextInput}
           setChange={handlePasswordChange}
@@ -137,7 +137,7 @@ function Login({ navigation }) {
 
         {data.isValidPassword ? null : (
           <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>
+            <Text style={[styles.errorMsg]}>
               Password must be 8 characters long.
             </Text>
           </Animatable.View>
@@ -177,7 +177,7 @@ function Login({ navigation }) {
         <View>
           <TouchableOpacity
             style={styles.signUpWrapper}
-            onPress={() => navigation.navigate("signUp")}
+            onPress={() => navigation.navigate("SignUp")}
           >
             <Text style={styles.signUpText}>Sign up </Text>
           </TouchableOpacity>

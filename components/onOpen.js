@@ -62,7 +62,7 @@ function onOpen({ navigation }) {
 
           <TouchableOpacity
             style={styles.signUpWrapper}
-            onPress={() => navigation.navigate("signUp")}
+            onPress={() => navigation.navigate("SignUp")}
           >
             <View>
               <Text style={styles.signUpText}>SIGN UP</Text>
