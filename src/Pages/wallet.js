@@ -3,7 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Logo from "../resources/logo";
 import PersonImg from "../resources/person";
+import { AuthContext } from "../../components/context";
+
 function wallet({ navigation }) {
+  const { signOut } = React.useContext(AuthContext);
+
   return (
     <View>
       <View style={styles.navbar}>
@@ -11,6 +15,15 @@ function wallet({ navigation }) {
         <Text>Wallet</Text>
         <TouchableOpacity>
           <PersonImg />
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            signOut();
+          }}
+        >
+          <Text style={styles.loginText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
     </View>

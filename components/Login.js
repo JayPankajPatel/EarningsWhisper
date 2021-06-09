@@ -80,6 +80,10 @@ function Login({ navigation }) {
     }
   };
 
+  const handleLogin = (username, password) => {
+    signIn(username, password);
+  };
+
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_100Thin,
@@ -156,8 +160,7 @@ function Login({ navigation }) {
           <TouchableOpacity
             style={styles.loginWrapper}
             onPress={() => {
-              signIn();
-              navigation.navigate("wallet");
+              handleLogin(data.username, data.password);
             }}
           >
             <Text style={styles.loginText}>Login</Text>
