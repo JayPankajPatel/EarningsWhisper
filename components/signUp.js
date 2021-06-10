@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  ScrollView,
   View,
   Text,
   StyleSheet,
@@ -56,9 +57,10 @@ export default function signUp({ navigation }) {
     return <AppLoading />;
   }
   return (
-    <View style={[styles.frame]}>
+    <ScrollView style={[styles.frame]}>
       <LinearGradient colors={["#F5ECDE", "#FFDAA3"]} style={{ flex: 1 }}>
         <View style={styles.headerWrapper}>
+          <Logo />
           <Text style={styles.createAccountText}>Create Account,</Text>
           <Text style={styles.getStartedText}>Sign up to Get Started!</Text>
         </View>
@@ -124,7 +126,7 @@ export default function signUp({ navigation }) {
           </View>
         </TouchableOpacity>
       </LinearGradient>
-    </View>
+    </ScrollView>
   );
 }
 

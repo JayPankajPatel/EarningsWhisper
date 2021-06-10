@@ -34,10 +34,10 @@ function App() {
           }
           userToken = "dfgdfg";
         }
-        console.log("user token: ", userToken);
+        //console.log("user token: ", userToken);
         dispatch({ type: "LOGIN", id: userName, token: userToken });
       },
-      signOut: () => {
+      signOut: async () => {
         try {
           await AsyncStorage.removeItem("userToken");
         } catch (e) {
@@ -45,7 +45,9 @@ function App() {
         }
         dispatch({ type: "LOGOUT" });
       },
-      signUp: (userName) => {
+      signUp: async (userName) => {
+        let userToken;
+        userToken = null;
         try {
           userToken = "dfgdfg";
           await AsyncStorage.setItem("userToken", userToken);
@@ -59,7 +61,7 @@ function App() {
   );
 
   useEffect(() => {
-    setTimeout(() => {
+    setTimeout(async () => {
       let userToken;
       userToken = null;
       try {
