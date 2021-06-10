@@ -81,7 +81,9 @@ function Login({ navigation }) {
   };
 
   const handleLogin = (username, password) => {
-    signIn(username, password);
+    if (data.isValidUser && data.isValidPassword) {
+      signIn(username, password);
+    }
   };
 
   let [fontsLoaded] = useFonts({

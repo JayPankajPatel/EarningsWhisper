@@ -9,52 +9,12 @@ import { AuthContext } from "./components/context";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainStackScreen from "./src/Pages/mainStack";
 import Models from "./models/User";
-import AsyncStoreage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loginReducer, initialLoginState } from "./src/reducers/loginReducer";
 
 const Drawer = createDrawerNavigator();
 
 function App() {
-  // const [isLoading, setIsLoading] = React.useState(true);
-  // const [userToken, setUserToken] = React.useState(null);
-
-  const initialLoginState = {
-    isLoading: true,
-    userName: null,
-    userToken: null,
-  };
-
-  loginReducer = (prevState, action) => {
-    switch (action.type) {
-      case "RETRIEVE_TOKEN":
-        return {
-          ...prevState,
-          userToken: action.token,
-          isLoading: false,
-        };
-      case "LOGIN":
-        return {
-          ...prevState,
-          username: action.id,
-          userToken: action.token,
-          isLoading: false,
-        };
-      case "LOGOUT":
-        return {
-          ...prevState,
-          userName: null,
-          userToken: null,
-          isLoading: false,
-        };
-      case "REGISTER":
-        return {
-          ...prevState,
-          userName: action.id,
-          userToken: action.token,
-          isLoading: false,
-        };
-    }
-  };
-
   const [loginState, dispatch] = React.useReducer(
     loginReducer,
     initialLoginState
@@ -78,11 +38,21 @@ function App() {
         dispatch({ type: "LOGIN", id: userName, token: userToken });
       },
       signOut: () => {
+        try {
+          await AsyncStorage.removeItem("userToken");
+        } catch (e) {
+          console.log();
+        }
         dispatch({ type: "LOGOUT" });
       },
-      signUp: () => {
-        // setUserToken("fkjk");
-        // setIsLoading(false);
+      signUp: (userName) => {
+        try {
+          userToken = "dfgdfg";
+          await AsyncStorage.setItem("userToken", userToken);
+        } catch (e) {
+          console.log();
+        }
+        dispatch({ type: "REGISTER", id: userName, token: userToken });
       },
     }),
     []
@@ -90,10 +60,13 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      //setIsLoading(false);
       let userToken;
-      userToken = "fgg;";
-      console.log("user token: ", userToken);
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem("userToken");
+      } catch (e) {
+        console.log();
+      }
       dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
     }, 1000);
   }, []);
