@@ -8,24 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Logo from "../src/resources/logo";
-import AppLoading from "expo-app-loading";
-import { useFonts } from "@expo-google-fonts/roboto";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
-import {
-  Roboto_100Thin,
-  Roboto_100Thin_Italic,
-  Roboto_300Light,
-  Roboto_300Light_Italic,
-  Roboto_400Regular,
-  Roboto_400Regular_Italic,
-  Roboto_500Medium,
-  Roboto_500Medium_Italic,
-  Roboto_700Bold,
-  Roboto_700Bold_Italic,
-  Roboto_900Black,
-  Roboto_900Black_Italic,
-} from "@expo-google-fonts/roboto";
 
 import BoxInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
@@ -39,26 +23,6 @@ const Login = (props) => {
       signIn(username, password);
     }
   };
-
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-    Roboto_100Thin,
-    Roboto_100Thin_Italic,
-    Roboto_300Light,
-    Roboto_300Light_Italic,
-    Roboto_400Regular,
-    Roboto_400Regular_Italic,
-    Roboto_500Medium,
-    Roboto_500Medium_Italic,
-    Roboto_700Bold,
-    Roboto_700Bold_Italic,
-    Roboto_900Black,
-    Roboto_900Black_Italic,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
   return (
     <View style={styles.frame}>
       <SafeAreaView>
@@ -162,7 +126,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     fontSize: 10,
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
     lineHeight: 18,
     color: "#FDE0B3",
   },
@@ -176,7 +140,8 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     fontSize: 12,
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
+    fontWeight: "500",
     color: "white",
   },
 
@@ -185,7 +150,8 @@ const styles = StyleSheet.create({
     marginLeft: 240,
   },
   forgotpasswordText: {
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
+    fontWeight: "500",
     fontSize: 12,
     color: "#A18652",
   },
@@ -202,7 +168,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loginText: {
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
+    fontWeight: "500",
     fontSize: 15,
     letterSpacing: 8,
     color: "#A18652",
@@ -219,7 +186,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FDE0B3",
   },
   noaccountText: {
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
+    fontWeight: "500",
     fontSize: 12,
     color: "#A18652",
     paddingHorizontal: 10,
@@ -237,7 +205,8 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     paddingLeft: 20,
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
+    fontWeight: "500",
     fontSize: 15,
     letterSpacing: 8,
     color: "#FDE0B3",

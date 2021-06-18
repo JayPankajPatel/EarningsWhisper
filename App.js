@@ -70,7 +70,7 @@ function App() {
         console.log();
       }
       dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
-      console.log("nut");
+      //console.log("nut");
     }, 1000);
   }, []);
 

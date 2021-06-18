@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-function Portfolio() {
+
+function Send() {
   return (
     <View>
-      <Text style={{ color: "black" }}>Something Goes Here</Text>
+      <Text style={{ color: "black" }}>Send</Text>
     </View>
   );
 }
 
-export default Portfolio;
+export default Send;

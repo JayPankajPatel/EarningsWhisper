@@ -7,48 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Logo from "../src/resources/logo";
-import AppLoading from "expo-app-loading";
-import { useFonts } from "@expo-google-fonts/roboto";
 import { LinearGradient } from "expo-linear-gradient";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
 
-import {
-  Roboto_100Thin,
-  Roboto_100Thin_Italic,
-  Roboto_300Light,
-  Roboto_300Light_Italic,
-  Roboto_400Regular,
-  Roboto_400Regular_Italic,
-  Roboto_500Medium,
-  Roboto_500Medium_Italic,
-  Roboto_700Bold,
-  Roboto_700Bold_Italic,
-  Roboto_900Black,
-  Roboto_900Black_Italic,
-} from "@expo-google-fonts/roboto";
-
 const onOpen = (props) => {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-    Roboto_100Thin,
-    Roboto_100Thin_Italic,
-    Roboto_300Light,
-    Roboto_300Light_Italic,
-    Roboto_400Regular,
-    Roboto_400Regular_Italic,
-    Roboto_500Medium,
-    Roboto_500Medium_Italic,
-    Roboto_700Bold,
-    Roboto_700Bold_Italic,
-    Roboto_900Black,
-    Roboto_900Black_Italic,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
   return (
     <View style={styles.frame}>
       <LinearGradient colors={["#F5ECDE", "#FFDAA3"]} style={{ flex: 1 }}>
@@ -115,7 +78,7 @@ const styles = StyleSheet.create({
 
   signUpText: {
     fontSize: 15,
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
     letterSpacing: 10,
   },
 
@@ -136,7 +99,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 15,
-    fontFamily: "Roboto_500Medium",
+    fontFamily: "Roboto",
     letterSpacing: 10,
     lineHeight: 18,
     color: "#FDE0B3",

@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-function Portfolio() {
+
+function Deposit() {
   return (
     <View>
-      <Text style={{ color: "black" }}>Something Goes Here</Text>
+      <Text style={{ color: "black" }}>Desposit</Text>
     </View>
   );
 }
 
-export default Portfolio;
+export default Deposit;
