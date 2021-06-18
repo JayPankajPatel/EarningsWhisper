@@ -20,6 +20,7 @@ import { AuthContext } from "../components/context";
 import { signIn } from "../components/Login";
 import User from "../models/User";
 import { validateUser } from "../utilities/validation";
+import * as actions from "../src/actions";
 
 import {
   Roboto_100Thin,
@@ -35,8 +36,10 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import { connect } from "react-redux";
 
-export default function signUp({ navigation }) {
+const signUp = (props) => {
+  const { signUp } = React.useContext(AuthContext);
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_100Thin,
@@ -118,7 +121,7 @@ export default function signUp({ navigation }) {
         <TouchableOpacity
           style={styles.signUpWrapper}
           onPress={() => {
-            signIn();
+            signUp();
           }}
         >
           <View>
@@ -128,7 +131,7 @@ export default function signUp({ navigation }) {
       </LinearGradient>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   frame: {
@@ -198,3 +201,5 @@ const styles = StyleSheet.create({
     color: "#FDE0B3",
   },
 });
+
+export default connect(null, actions)(signUp);

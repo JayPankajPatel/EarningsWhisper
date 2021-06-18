@@ -1,22 +1,17 @@
 import * as React from "react";
-import { useState } from "react";
 import * as Animatable from "react-native-animatable";
-
 import {
   View,
   Text,
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
-import { Directions } from "react-native-gesture-handler";
 import Logo from "../src/resources/logo";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/roboto";
-import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from "@react-navigation/native";
-
+import { connect } from "react-redux";
+import * as actions from "../src/actions";
 import {
   Roboto_100Thin,
   Roboto_100Thin_Italic,
@@ -32,56 +27,15 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-import User from "../models/User";
-import { validateUser } from "../utilities/validation";
 import BoxInput from "../components/TextInput";
-import textInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
 
-function Login({ navigation }) {
-  const [data, setData] = React.useState({
-    username: "",
-    password: "",
-    isValidUser: true,
-    isValidPassword: true,
-  });
-
+const Login = (props) => {
   const { signIn } = React.useContext(AuthContext);
 
-  const handleUserChange = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        username: val,
-        isValidUser: true,
-      });
-    } else {
-      setData({
-        ...data,
-        username: val,
-        isValidUser: false,
-      });
-    }
-  };
-
-  const handlePasswordChange = (val) => {
-    if (val.trim().length >= 8) {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: true,
-      });
-    } else {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: false,
-      });
-    }
-  };
-
   const handleLogin = (username, password) => {
-    if (data.isValidUser && data.isValidPassword) {
+    if (props.isValidUser && props.isValidPassword) {
+      //console.log(props.isValidUser + " " + props.isValidPassword);
       signIn(username, password);
     }
   };
@@ -121,9 +75,9 @@ function Login({ navigation }) {
           textLabel={"Username"}
           inputBox={styles.TextInputWrapper}
           inputStyleText={styles.TextInput}
-          setChange={handleUserChange}
+          setChange={props.handleUserChange}
         />
-        {data.isValidUser ? null : (
+        {props.isValidUser ? null : (
           <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>
               Username must be 4 characters long.
@@ -138,10 +92,10 @@ function Login({ navigation }) {
           textLabel={"Password"}
           inputBox={styles.TextInputWrapper}
           inputStyleText={styles.TextInput}
-          setChange={handlePasswordChange}
+          setChange={props.handlePasswordChange}
         />
 
-        {data.isValidPassword ? null : (
+        {props.isValidPassword ? null : (
           <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>
               Password must be 8 characters long.
@@ -162,7 +116,8 @@ function Login({ navigation }) {
           <TouchableOpacity
             style={styles.loginWrapper}
             onPress={() => {
-              handleLogin(data.username, data.password);
+              //console.log(props.username + " " + props.password);
+              handleLogin(props.username, props.password);
             }}
           >
             <Text style={styles.loginText}>Login</Text>
@@ -182,7 +137,7 @@ function Login({ navigation }) {
         <View>
           <TouchableOpacity
             style={styles.signUpWrapper}
-            onPress={() => navigation.navigate("signUp")}
+            onPress={() => props.navigation.navigate("signUp")}
           >
             <Text style={styles.signUpText}>Sign up </Text>
           </TouchableOpacity>
@@ -190,7 +145,7 @@ function Login({ navigation }) {
       </SafeAreaView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   frame: {
@@ -297,4 +252,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    username: state.username,
+    password: state.password,
+    isValidUser: state.isValidUser,
+    isValidPassword: state.isValidPassword,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Login);

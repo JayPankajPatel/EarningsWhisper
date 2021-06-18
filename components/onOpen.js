@@ -6,11 +6,12 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { Directions } from "react-native-gesture-handler";
 import Logo from "../src/resources/logo";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/roboto";
 import { LinearGradient } from "expo-linear-gradient";
+import { connect } from "react-redux";
+import * as actions from "../src/actions";
 
 import {
   Roboto_100Thin,
@@ -27,7 +28,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-function onOpen({ navigation }) {
+const onOpen = (props) => {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_100Thin,
@@ -62,7 +63,7 @@ function onOpen({ navigation }) {
 
           <TouchableOpacity
             style={styles.signUpWrapper}
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => props.navigation.navigate("SignUp")}
           >
             <View>
               <Text style={styles.signUpText}>SIGN UP</Text>
@@ -71,7 +72,7 @@ function onOpen({ navigation }) {
 
           {/* Login */}
 
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
             <View style={styles.loginWrapper}>
               <Text style={styles.loginText}>LOGIN</Text>
             </View>
@@ -80,7 +81,7 @@ function onOpen({ navigation }) {
       </LinearGradient>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   frame: {
@@ -141,4 +142,4 @@ const styles = StyleSheet.create({
     color: "#FDE0B3",
   },
 });
-export default onOpen;
+export default connect(null, actions)(onOpen);
