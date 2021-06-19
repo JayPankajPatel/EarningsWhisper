@@ -5,6 +5,7 @@ import TopBar from "../../components/TopBar";
 import Portfolio from "../../components/Portfolio";
 import Send from "../../components/Send";
 import Deposit from "../../components/Deposit";
+
 function wallet({ navigation }) {
   const { signOut } = React.useContext(AuthContext);
 
@@ -37,20 +38,23 @@ function wallet({ navigation }) {
 
 const styles = StyleSheet.create({
   portfolio: {
-    flex: 3,
+    flex: 4,
     backgroundColor: "red",
   },
   moneyStuff: {
     flex: 1,
-    backgroundColor: "green",
+    marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    padding: 10,
   },
   transactions: {
     flex: 2,
     backgroundColor: "orange",
   },
   botNavBar: {
-    flex: 2,
-    backgroundColor: "blue",
+    flex: 1.3,
   },
 });
 

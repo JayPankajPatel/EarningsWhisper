@@ -14,6 +14,9 @@ import store from "./src/store";
 import { Provider } from "react-redux";
 import { initialLoginState } from "./src/reducers/peopleReducer";
 import { loginReducer } from "./src/reducers/loginReducer";
+import BottomNavBar from "./components/BottomNavBar";
+import Search from "./src/Pages/search";
+import Calendar from "./src/Pages/calendar";
 const Drawer = createDrawerNavigator();
 
 function App() {
@@ -88,7 +91,10 @@ function App() {
         <NavigationContainer>
           {loginState.userToken !== null ? (
             <Drawer.Navigator>
+              <Drawer.Screen name="homeDrawer" component={BottomNavBar} />
               <Drawer.Screen name="wallet" component={Wallet} />
+              <Drawer.Screen name="calendar" component={Calendar} />
+              <Drawer.Screen name="search" component={Search} />
             </Drawer.Navigator>
           ) : (
             <MainStackScreen />
