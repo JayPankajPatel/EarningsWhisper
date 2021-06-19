@@ -21,3 +21,9 @@ export const handlePasswordChange = (val) => {
     valid: validPassword,
   };
 };
+
+export const grabUserInfo = () => {
+  fetch("192.168.1.13:3000/").then((data) => {
+    console.log(data);
+  });
+};

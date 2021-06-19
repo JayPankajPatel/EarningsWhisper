@@ -20,7 +20,8 @@ const Login = (props) => {
   const handleLogin = (username, password) => {
     if (props.isValidUser && props.isValidPassword) {
       //console.log(props.isValidUser + " " + props.isValidPassword);
-      signIn(username, password);
+      props.grabUserInfo();
+      //signIn(username, password);
     }
   };
   return (
