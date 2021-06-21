@@ -30,7 +30,7 @@ const BottomNavBar = () => (
       options={{
         tabBarLabel: "",
         tabBarColor: "#CD9F59",
-        tabBarIcon: ({ color }) => <Icon name="home" color={color} size={30} />,
+        tabBarIcon: ({ color }) => <Icon name="home" color={color} size={26} />,
       }}
     />
     <Tab.Screen
@@ -40,7 +40,7 @@ const BottomNavBar = () => (
         tabBarLabel: "",
         tabBarColor: "#CD9F59",
         tabBarIcon: ({ color }) => (
-          <Icon name="calendar" color={color} size={30} />
+          <Icon name="calendar" color={color} size={26} />
         ),
       }}
     />
@@ -51,7 +51,7 @@ const BottomNavBar = () => (
         tabBarLabel: "",
         tabBarColor: "#CD9F59",
         tabBarIcon: ({ color }) => (
-          <SearchIcon name="search" color={color} size={30} />
+          <SearchIcon name="search" color={color} size={26} />
         ),
       }}
     />

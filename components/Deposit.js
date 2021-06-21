@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#323232",
     borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 50,
+    paddingVertical: 5,
+    paddingHorizontal: 30,
     display: "flex",
     flexDirection: "column",
   },

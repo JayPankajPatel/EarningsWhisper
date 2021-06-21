@@ -5,7 +5,7 @@ import TopBar from "../../components/TopBar";
 import Portfolio from "../../components/Portfolio";
 import Send from "../../components/Send";
 import Deposit from "../../components/Deposit";
-
+import Transactions from "../../components/Transactions";
 function wallet({ navigation }) {
   const { signOut } = React.useContext(AuthContext);
 
@@ -22,7 +22,9 @@ function wallet({ navigation }) {
         <Deposit />
       </View>
       {/*Transactions */}
-      <View style={styles.transactions}></View>
+      <View style={styles.transactions}>
+        <Transactions />
+      </View>
       <TouchableOpacity
         onPress={() => {
           signOut();
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
   },
   transactions: {
     flex: 2,
-    backgroundColor: "orange",
   },
   botNavBar: {
     flex: 1.3,

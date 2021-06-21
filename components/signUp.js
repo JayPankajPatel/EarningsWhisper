@@ -56,6 +56,21 @@ const signUp = (props) => {
     Roboto_900Black_Italic,
   });
 
+  onAddPress = () => {
+    const { username, password, email, birthdate, question, answer } = props;
+
+    props.createNewSignUp({
+      username,
+      password,
+      email,
+      birthdate,
+      question,
+      answer,
+    });
+
+    props.navigation.navigate("Login");
+  };
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -73,8 +88,9 @@ const signUp = (props) => {
           styleFontText={styles.Text}
           textLabel={"USERNAME"}
           inputBox={styles.TextInputWrapper}
+          value={props.username}
           inputStyleText={styles.TextInput}
-          setChange={null}
+          setChange={(value) => props.formUpdate({ prop: "username", value })}
         />
 
         <BoxInput
@@ -82,45 +98,53 @@ const signUp = (props) => {
           styleFontText={styles.Text}
           textLabel={"EMAIL"}
           inputBox={styles.TextInputWrapper}
+          value={props.email}
           inputStyleText={styles.TextInput}
-          setChange={null}
+          setChange={(value) => props.formUpdate({ prop: "email", value })}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
           textLabel={"PASSWORD"}
           inputBox={styles.TextInputWrapper}
+          value={props.password}
           inputStyleText={styles.TextInput}
-          setChange={null}
+          setChange={(value) => props.formUpdate({ prop: "password", value })}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
           textLabel={"CONFIRM PASSWORD"}
+          value={props.confirmPassword}
           inputBox={styles.TextInputWrapper}
           inputStyleText={styles.TextInput}
-          setChange={null}
+          setChange={(value) =>
+            props.formUpdate({ prop: "confirmPassword", value })
+          }
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
           textLabel={"SECURITY QUESTION"}
           inputBox={styles.TextInputWrapper}
+          value={props.question}
           inputStyleText={styles.TextInput}
-          setChange={null}
+          setChange={(value) => props.formUpdate({ prop: "question", value })}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
           textLabel={"ANSWER"}
           inputBox={styles.TextInputWrapper}
+          value={props.answer}
           inputStyleText={styles.TextInput}
-          setChange={null}
+          setChange={(value) => props.formUpdate({ prop: "answer", value })}
         />
 
         <TouchableOpacity
           style={styles.signUpWrapper}
           onPress={() => {
+            onAddPress();
             signUp();
           }}
         >
@@ -202,4 +226,25 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, actions)(signUp);
+const mapStateToProps = (state) => {
+  const {
+    username,
+    password,
+    confirmPassword,
+    email,
+    birthdate,
+    question,
+    answer,
+  } = state;
+  return {
+    username,
+    password,
+    confirmPassword,
+    email,
+    birthdate,
+    question,
+    answer,
+  };
+};
+
+export default connect(mapStateToProps, actions)(signUp);

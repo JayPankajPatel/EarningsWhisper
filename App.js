@@ -17,6 +17,8 @@ import { loginReducer } from "./src/reducers/loginReducer";
 import BottomNavBar from "./components/BottomNavBar";
 import Search from "./src/Pages/search";
 import Calendar from "./src/Pages/calendar";
+import User from "./models/User";
+
 const Drawer = createDrawerNavigator();
 
 function App() {
@@ -27,16 +29,14 @@ function App() {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (username, password) => {
+      signIn: async (username) => {
         let userToken;
         userToken = null;
-        if (username == Models.username && password == Models.password) {
-          try {
-            userToken = "dfgdfg";
-            await AsyncStorage.setItem("userToken", userToken);
-          } catch (e) {
-            console.log();
-          }
+        try {
+          userToken = "dfgdfg";
+          await AsyncStorage.setItem("userToken", userToken);
+        } catch (e) {
+          console.log();
         }
         dispatch({ type: "LOGIN", id: username, token: userToken });
       },

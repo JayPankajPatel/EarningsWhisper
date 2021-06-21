@@ -1,7 +1,13 @@
 export const initialLoginState = {
+  users: [],
   isLoading: true,
-  username: "",
-  password: "",
+  username: null,
+  password: null,
+  confirmPassword: null,
+  email: null,
+  birthdate: null,
+  question: null,
+  answer: null,
   userToken: null,
   isValidUser: true,
   isValidPassword: true,
@@ -9,6 +15,11 @@ export const initialLoginState = {
 
 export default (prevState = initialLoginState, action) => {
   switch (action.type) {
+    case "LOAD_USERS":
+      return {
+        ...prevState,
+        users: action.payload,
+      };
     case "RETRIEVE_TOKEN":
       return {
         ...prevState,
@@ -47,6 +58,11 @@ export default (prevState = initialLoginState, action) => {
         ...prevState,
         password: action.payload,
         isValidPassword: action.valid,
+      };
+    case "FORM_UPDATE":
+      return {
+        ...prevState,
+        [action.payload.prop]: action.payload.value,
       };
     default:
       return {

@@ -16,14 +16,17 @@ import { AuthContext } from "../components/context";
 
 const Login = (props) => {
   const { signIn } = React.useContext(AuthContext);
-
-  const handleLogin = (username, password) => {
+  props.loadUsers();
+  const handleLogin = (userName, password) => {
+    var users = props.users;
+    console.log(users);
+    // if (foundUser != null) {
     if (props.isValidUser && props.isValidPassword) {
-      //console.log(props.isValidUser + " " + props.isValidPassword);
-      props.grabUserInfo();
-      //signIn(username, password);
+      //console.log(props.isValidUser + " " + props.isValidPassword)
+      signIn(userName, password);
     }
   };
+  // };
   return (
     <View style={styles.frame}>
       <SafeAreaView>
@@ -228,6 +231,7 @@ const mapStateToProps = (state) => {
     password: state.password,
     isValidUser: state.isValidUser,
     isValidPassword: state.isValidPassword,
+    users: state.users,
   };
 };
 
