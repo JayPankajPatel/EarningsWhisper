@@ -9,8 +9,6 @@ import {
 } from "react-native";
 import TopBar from "../../components/TopBar";
 import Transactions from "../../components/Transactions";
-import EarningsBar from "../../components/EarningsBar";
-import { LinearGradient } from "expo-linear-gradient";
 function calendar({ navigation, profileName }) {
   return (
     <View style={{ top: 25, backgroundColor: "#F5ECDE", flex: 1 }}>
@@ -34,11 +32,7 @@ function calendar({ navigation, profileName }) {
         </ImageBackground>
       </View>
       {/* Calendar Stuff */}
-      <View style={styles.calendarStuff}>
-       
-       
-      </View>
-
+      <View style={styles.calendarStuff}></View>
       {/*Transactions */}
       <View style={styles.transactions}></View>
     </View>
@@ -51,7 +45,6 @@ const styles = StyleSheet.create({
   },
   calendarStuff: {
     flex: 3,
-
   },
   border: {
     backgroundColor: "#F5ECDE",
@@ -80,7 +73,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "center",
   },
-  
 });
 
 export default calendar;
