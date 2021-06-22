@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AuthContext } from "../../components/context";
 import TopBar from "../../components/TopBar";
-import Portfolio from "../../components/Portfolio";
+import Portfolio from "../../components/portfolio";
 import Send from "../../components/Send";
 import Deposit from "../../components/Deposit";
 import Transactions from "../../components/Transactions";
