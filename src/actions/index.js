@@ -32,7 +32,7 @@ export const handlePasswordChange = (val) => {
 export const loadUsers = () => {
   return (dispatch) => {
     try {
-      fetch("http://192.168.1.13:3000/")
+      fetch("http://earningswhisper.zapto.org:3000/userinfo")
         .then((response) => {
           return response.json();
         })
@@ -54,7 +54,7 @@ export const createNewSignUp = ({
   answer,
 }) => {
   return (dispatch) => {
-    fetch("http://192.168.1.13:3000/signup", {
+    fetch("http://earningswhisper.zapto.org:3000/signup", {
       method: "POST",
       body: JSON.stringify({
         username: username,

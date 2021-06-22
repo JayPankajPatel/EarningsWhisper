@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import * as Animatable from "react-native-animatable";
 import {
   View,
@@ -16,14 +16,21 @@ import { AuthContext } from "../components/context";
 
 const Login = (props) => {
   const { signIn } = React.useContext(AuthContext);
-  props.loadUsers();
+  useEffect(() => {
+    props.loadUsers();
+  }, []);
   const handleLogin = (userName, password) => {
-    var users = props.users;
-    console.log(users);
-    // if (foundUser != null) {
-    if (props.isValidUser && props.isValidPassword) {
-      //console.log(props.isValidUser + " " + props.isValidPassword)
-      signIn(userName, password);
+    var user = props.users.user.filter(function (e) {
+      return e.username === userName;
+    });
+    if (
+      user != null &&
+      user[0].username === userName &&
+      user[0].password === password
+    ) {
+      if (props.isValidUser && props.isValidPassword) {
+        signIn(userName, password);
+      }
     }
   };
   // };

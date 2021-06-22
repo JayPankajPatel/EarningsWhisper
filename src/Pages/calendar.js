@@ -22,14 +22,12 @@ function calendar({ navigation, profileName }) {
           style={styles.image}
         >
           <View style={styles.border}></View>
-          <View>
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-              }}
-              style={styles.profileImage}
-            />
-          </View>
+          <Image
+            source={{
+              uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+            }}
+            style={styles.profileImage}
+          />
           <Text style={styles.fontStyle}>Welcome Back {profileName}</Text>
         </ImageBackground>
       </View>
