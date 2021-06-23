@@ -14,38 +14,33 @@ function EarningsBar({
   arrow,
 }) {
   return (
+    <LinearGradient colors = {["#222120","#10100F"]}>
     <View style={styles.containerWrapper}>
       <View style={styles.infoContainer}>
-        <Text style={styles.titleText}>Company</Text>
+        <Text style={[styles.titleText, {textDecorationLine: "underline"}]}>Company</Text>
         <Text style={styles.titleText}>{companyName}</Text>
-
         <Text style={styles.titleText}>{companyAbbrev}</Text>
       </View>
 
-      <View style={styles.containerWrapper}>
-        <Text style={styles.titleText}>Estimate</Text>
-
-        <Text style={styles.titleText}>{companyEPS}</Text>
-
-        <Text style={styles.titleText}>{companyRev}</Text>
+      <View style={styles.infoWrapper}>
+        <Text style={[styles.titleText, {textDecorationLine: "underline"}]}>Estimate</Text>
+        <Text style={styles.titleText}>EPS:{companyEPS}</Text>
+        <Text style={styles.titleText}>Rev:{companyRev}</Text>
       </View>
 
-      <View style={styles.containerWrapper}>
-        <Text style={styles.titleText}>Actual</Text>
-
+      <View style={styles.infoWrapper}>
+        <Text style={[styles.titleText, {textDecorationLine: "underline"}]}>Actual</Text>
         <Text style={styles.titleText}>{companyActualEPS}</Text>
-
         <Text style={styles.titleText}>{companyActualRev}</Text>
       </View>
 
-      <View style={styles.containerWrapper}>
-        <Text style={styles.titleText}>Growth</Text>
-
+      <View style={styles.infoWrapper}>
+        <Text style={[styles.titleText, {textDecorationLine: "underline"}]}>Growth</Text>
         <Text style={styles.titleText}>{companyGrowthEPS}</Text>
-
         <Text style={styles.titleText}>{companyGrowthRev}</Text>
       </View>
     </View>
+    </LinearGradient>
   );
 }
 
@@ -56,19 +51,23 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     marginLeft: 10,
   },
-  TitleText: {
+  titleText: {
     color: "#EDE9E2",
     fontWeight: "bold",
     fontSize: 12,
+    
   },
   containerWrapper: {
     flexDirection: "row",
     marginTop: 10,
     marginHorizontal: 10,
     backgroundColor: "#736345",
-    padding: 60,
-    borderRadius: 20,
+    padding: 20,
+ 
+    justifyContent: "space-between",
   },
 });
 
 export default EarningsBar;
+
+
