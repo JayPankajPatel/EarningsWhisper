@@ -7,32 +7,32 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
+import ProfileComp from "../../components/profileComp";
 import TopBar from "../../components/TopBar";
-import Transactions from "../../components/Transactions";
+import EarningsBar from "../../components/EarningsBar";
+import CalendarNavBar from "../../components/calendarNavBar";
+
 function calendar({ navigation, profileName }) {
   return (
     <View style={{ top: 25, backgroundColor: "#F5ECDE", flex: 1 }}>
       <TopBar title={"Calendar"} />
       {/*Main Body*/}
-      <View style={styles.profile}>
-        <ImageBackground
-          source={{
-            uri: "https://images.unsplash.com/photo-1558025137-0b406e9cc169?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1868&q=80",
-          }}
-          style={styles.image}
-        >
-          <View style={styles.border}></View>
-          <Image
-            source={{
-              uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-            }}
-            style={styles.profileImage}
-          />
-          <Text style={styles.fontStyle}>Welcome Back {profileName}</Text>
-        </ImageBackground>
-      </View>
+      <ProfileComp />
       {/* Calendar Stuff */}
-      <View style={styles.calendarStuff}></View>
+      <View style={styles.calendarStuff}>
+        <CalendarNavBar />
+        {/* <EarningsBar
+          companyName={"NVIDIA Corp."}
+          companyAbbrev={"NVDA"}
+          companyEPS={"$3.28"}
+          companyRev={"$3.28"}
+          companyActualEPS={"$3.66"}
+          companyActualRES={"$5.66"}
+          companyGrowthEPS={"103.3%"}
+          companyGrowthRev={"83.8%"}
+          arrow={"good"}
+        /> */}
+      </View>
       {/*Transactions */}
       <View style={styles.transactions}></View>
     </View>

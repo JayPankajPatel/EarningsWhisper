@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#F5ECDE",
     marginLeft: 60,
+    letterSpacing: 4,
+    textAlign: "center",
+    right: 4,
   },
   profileImage: {
     flex: 1,
