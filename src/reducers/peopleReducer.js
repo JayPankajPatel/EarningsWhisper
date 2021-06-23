@@ -1,6 +1,8 @@
 export const initialLoginState = {
   users: [],
+  stocks: [],
   isLoading: true,
+  user_id: null,
   username: null,
   password: null,
   confirmPassword: null,
@@ -20,6 +22,12 @@ export default (prevState = initialLoginState, action) => {
         ...prevState,
         users: action.payload,
       };
+    case "LOAD_STOCKS":
+      return {
+        ...prevState,
+        stocks: action.payload,
+      };
+
     case "RETRIEVE_TOKEN":
       return {
         ...prevState,

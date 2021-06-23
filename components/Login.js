@@ -91,7 +91,6 @@ const Login = (props) => {
           <TouchableOpacity
             style={styles.loginWrapper}
             onPress={() => {
-              //console.log(props.username + " " + props.password);
               handleLogin(props.username, props.password);
             }}
           >

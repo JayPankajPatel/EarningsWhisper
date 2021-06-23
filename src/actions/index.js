@@ -57,6 +57,7 @@ export const createNewSignUp = ({
     fetch("http://earningswhisper.zapto.org:3000/signup", {
       method: "POST",
       body: JSON.stringify({
+        user_id: user_id,
         username: username,
         password: password,
         email: email,
@@ -75,5 +76,21 @@ export const createNewSignUp = ({
       .then(() => {
         dispatch({ type: "SIGNUP" });
       });
+  };
+};
+
+export const loadDailyStock = () => {
+  return (dispatch) => {
+    try {
+      fetch("http://earningswhisper.zapto.org:3000/dailystock")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          dispatch({ type: "LOAD_STOCKS", payload: data });
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
