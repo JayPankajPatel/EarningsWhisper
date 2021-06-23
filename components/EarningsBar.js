@@ -16,16 +16,16 @@ function EarningsBar({
   return (
     <LinearGradient colors = {["#222120","#10100F"]}>
     <View style={styles.containerWrapper}>
-      <View style={styles.infoContainer}>
+      <View style={styles.infoWrapper}>
         <Text style={[styles.titleText, {textDecorationLine: "underline"}]}>Company</Text>
-        <Text style={styles.titleText}>{companyName}</Text>
+        <Text style={styles.companynameText}>{companyName}</Text>
         <Text style={styles.titleText}>{companyAbbrev}</Text>
       </View>
 
       <View style={styles.infoWrapper}>
         <Text style={[styles.titleText, {textDecorationLine: "underline"}]}>Estimate</Text>
-        <Text style={styles.titleText}>EPS:{companyEPS}</Text>
-        <Text style={styles.titleText}>Rev:{companyRev}</Text>
+        <Text style={styles.titleText}>EPS: {companyEPS}</Text>
+        <Text style={styles.titleText}>Rev: {companyRev}</Text>
       </View>
 
       <View style={styles.infoWrapper}>
@@ -45,18 +45,25 @@ function EarningsBar({
 }
 
 const styles = StyleSheet.create({
-  infoContainer: {
+  infoWrapper: {
     flexDirection: "column",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignItems: "stretch",
-    marginLeft: 10,
+    
   },
   titleText: {
     color: "#EDE9E2",
     fontWeight: "bold",
     fontSize: 12,
+    marginTop: 6, 
     
   },
+  companynameText: {
+    color: "#EDE9E2",
+    fontWeight: "300",
+    fontSize: 12,
+
+  }, 
   containerWrapper: {
     flexDirection: "row",
     marginTop: 10,
