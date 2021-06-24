@@ -1,0 +1,42 @@
+[
+  [
+    {
+      "companyshortName": "Tesla Corp.",
+      "ticker": "TSLA",
+      "epsestimate": "$3.28",
+      "epsactual": "$3.66",
+      "companygrowtheps": "103.3%",
+      "companygrowthrev": "83.8%",
+      "arrow": "good"
+    },
+    {
+      "companyshortName": "IBM",
+      "ticker": "IDM",
+      "epsestimate": "$3.28",
+      "epsactual": "$3.66",
+      "companygrowtheps": "103.3%",
+      "companygrowthrev": "83.8%",
+      "arrow": "good"
+    }
+  ],
+  [
+    {
+      "companyshortName": "Uber Inc",
+      "ticker": "UBR",
+      "epsestimate": "$3.28",
+      "epsactual": "$3.66",
+      "companygrowtheps": "103.3%",
+      "companygrowthrev": "83.8%",
+      "arrow": "good"
+    },
+    {
+      "companyshortName": "USO Oil",
+      "ticker": "USO",
+      "epsestimate": "$3.28",
+      "epsactual": "$3.66",
+      "companygrowtheps": "103.3%",
+      "companygrowthrev": "83.8%",
+      "arrow": "good"
+    }
+  ]
+]

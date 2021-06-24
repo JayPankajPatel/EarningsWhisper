@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import Icon from "react-native-vector-icons/Feather";
 
 function EarningsBar({
   companyName,
@@ -16,7 +17,7 @@ function EarningsBar({
   return (
     <LinearGradient
       style={styles.container}
-      colors={["#222120", "rgba(16,16,15,0.15)"]}
+      colors={["#222120", "rgba(16,16,15,0.20)"]}
     >
       <View style={styles.containerWrapper}>
         <View style={styles.infoWrapper}>
@@ -54,7 +55,11 @@ function EarningsBar({
           <Text style={[styles.titleText, { textDecorationLine: "none" }]}>
             BMO
           </Text>
-          <Text style={styles.titleText}>{companyGrowthRev}</Text>
+          <Icon
+            name={"chevron-down"}
+            size={40}
+            style={{ color: "#FF0000", marginRight: 5 }}
+          />
         </View>
       </View>
     </LinearGradient>
@@ -65,14 +70,13 @@ const styles = StyleSheet.create({
   container: {
     height: 100,
     marginHorizontal: 15,
-    marginTop: 30,
-    padding: 0,
     borderRadius: 8,
+    marginVertical: 10,
   },
   infoWrapper: {
     flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   titleText: {
     color: "#EDE9E2",

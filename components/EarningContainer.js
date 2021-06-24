@@ -1,23 +1,39 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, View, StyleSheet } from "react-native";
 import EarningsBar from "./EarningsBar";
-function EarningContainer({ dates, data }) {
+
+const EarningContainer = (props) => {
+  //console.log(props.data);
   return (
-    <View style={styles.container}>
-      <EarningsBar
-        companyName={"NVIDIA Corp."}
-        companyAbbrev={"NVDA"}
-        companyEPS={"$3.28"}
-        companyRev={"$3.28"}
-        companyActualEPS={"$3.66"}
-        companyActualRES={"$5.66"}
-        companyGrowthEPS={"103.3%"}
-        companyGrowthRev={"83.8%"}
-        arrow={"good"}
-      />
-    </View>
+    <ScrollView nestedScrollEnabled={true}>
+      {props.data.map(
+        ({
+          companyshortname,
+          ticker,
+          epsestimate,
+          epsactual,
+          companygrowtheps,
+          companygrowthrev,
+          arrow,
+        }) => {
+          return (
+            <EarningsBar
+              companyName={companyshortname}
+              companyAbbrev={ticker}
+              companyEPS={epsestimate}
+              companyRev={"$3.28"}
+              companyActualEPS={epsactual}
+              companyActualRES={"$5.66"}
+              companyGrowthEPS={"103.3%"}
+              companyGrowthRev={"83.8%"}
+              arrow={"good"}
+            />
+          );
+        }
+      )}
+    </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

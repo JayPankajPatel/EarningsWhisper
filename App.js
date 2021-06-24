@@ -8,7 +8,6 @@ import Wallet from "./src/Pages/wallet";
 import { AuthContext } from "./components/context";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainStackScreen from "./src/Pages/mainStack";
-import Models from "./models/User";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import store from "./src/store";
 import { Provider } from "react-redux";
@@ -17,7 +16,6 @@ import { loginReducer } from "./src/reducers/loginReducer";
 import BottomNavBar from "./components/BottomNavBar";
 import Search from "./src/Pages/search";
 import Calendar from "./src/Pages/calendar";
-import User from "./models/User";
 
 const Drawer = createDrawerNavigator();
 

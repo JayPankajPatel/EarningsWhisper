@@ -15,11 +15,7 @@ import { useFonts } from "@expo-google-fonts/roboto";
 import { LinearGradient } from "expo-linear-gradient";
 import { createStackNavigator } from "@react-navigation/stack";
 import BoxInput from "../components/TextInput";
-import textInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
-import { signIn } from "../components/Login";
-import User from "../models/User";
-import { validateUser } from "../utilities/validation";
 import * as actions from "../src/actions";
 
 import {
