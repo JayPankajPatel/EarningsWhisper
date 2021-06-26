@@ -41,7 +41,6 @@ function wallet({ navigation }) {
 const styles = StyleSheet.create({
   portfolio: {
     flex: 4,
-    backgroundColor: "red",
   },
   moneyStuff: {
     flex: 1,

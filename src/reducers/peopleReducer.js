@@ -1,6 +1,8 @@
 export const initialLoginState = {
   users: [],
+  searchedStocks: [],
   stocks: [],
+  searchTerm: null,
   isLoading: true,
   user_id: null,
   username: null,
@@ -71,6 +73,16 @@ export default (prevState = initialLoginState, action) => {
       return {
         ...prevState,
         [action.payload.prop]: action.payload.value,
+      };
+    case "STOCK":
+      return {
+        ...prevState,
+        stockDetail: action.payload,
+      };
+    case "SEARCH":
+      return {
+        ...prevState,
+        searchedStocks: action.payload,
       };
     default:
       return {

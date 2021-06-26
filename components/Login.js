@@ -18,6 +18,7 @@ const Login = (props) => {
   const { signIn } = React.useContext(AuthContext);
   useEffect(() => {
     props.loadUsers();
+    console.log(props.users.user);
   }, []);
   const handleLogin = (userName, password) => {
     var user = props.users.user.filter(function (e) {

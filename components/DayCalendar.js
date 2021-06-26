@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import { ScrollView, View, TouchableOpacity, Text } from "react-native";
 import { connect } from "react-redux";
-import EarningContainer from "./EarningContainer";
 import * as actions from "../src/actions";
 import EarningsBar from "./EarningsBar";
 
 const DayCalendar = (props) => {
   useEffect(() => {
-    props.loadDailyStock();
+    setTimeout(async () => {
+      await props.loadDailyStock();
+      //console.log(props.dailyStocks);
+    }, 1000);
   }, []);
-  const grabUserInfo = () => {
-    console.log(props.dailyStocks);
-  };
   return (
     <ScrollView nestedScrollEnabled={true}>
       {props.dailyStocks.map(

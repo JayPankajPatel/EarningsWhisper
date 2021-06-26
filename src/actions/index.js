@@ -57,7 +57,6 @@ export const createNewSignUp = ({
     fetch("http://earningswhisper.zapto.org:3000/signup", {
       method: "POST",
       body: JSON.stringify({
-        user_id: user_id,
         username: username,
         password: password,
         email: email,
@@ -92,5 +91,81 @@ export const loadDailyStock = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const loadWeeklyStock = () => {
+  return (dispatch) => {
+    try {
+      fetch("http://earningswhisper.zapto.org:3000/weeklystock")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          dispatch({ type: "LOAD_STOCKS", payload: data });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const loadMonthlyStock = () => {
+  return (dispatch) => {
+    try {
+      fetch("http://earningswhisper.zapto.org:3000/monthlystock")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          dispatch({ type: "LOAD_STOCKS", payload: data });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const stockDetail = (stocksymbol) => {
+  console.log(stocksymbol);
+  return (dispatch) => {
+    fetch(`http://earningswhisper.zapto.org:3000/stockinfo`, {
+      method: "POST",
+      body: JSON.stringify({
+        stocksymbol: stocksymbol,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        dispatch({ type: "STOCK", payload: data });
+      });
+  };
+};
+
+export const searchStock = (stocksymbol) => {
+  console.log(stocksymbol);
+  return (dispatch) => {
+    fetch(`http://earningswhisper.zapto.org:3000/search`, {
+      method: "POST",
+      body: JSON.stringify({
+        search: stocksymbol,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        dispatch({ type: "SEARCH", payload: data });
+      });
   };
 };

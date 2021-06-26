@@ -20,11 +20,10 @@ function WeekCalendar() {
     <ScrollView nestedScrollEnabled={true}>
       {stock.map((data, index) => {
         return (
-          <View style={styles.container}>
+          <View key={index} style={styles.container}>
             <View style={styles.titleTab}>
               <Text style={styles.title}>May 24th-28th</Text>
               <TouchableOpacity
-                key={index}
                 onPress={() => {
                   setCurrentIndex(index === currentIndex ? null : index);
                 }}
@@ -37,7 +36,9 @@ function WeekCalendar() {
                 />
               </TouchableOpacity>
             </View>
-            {index === currentIndex && <EarningContainer data={data} />}
+            {index === currentIndex && (
+              <EarningContainer key={data.ticker} data={data} />
+            )}
           </View>
         );
       })}

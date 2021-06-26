@@ -1,7 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-function search() {
-  return <View></View>;
-}
+import SearchContainer from "../../components/searchContainer";
+const Search = () => {
+  return (
+    <View>
+      <SearchContainer />
+    </View>
+  );
+};
 
-export default search;
+export default Search;
