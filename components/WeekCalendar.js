@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   TouchableOpacity,
   View,
@@ -13,12 +13,17 @@ import * as actions from "../src/actions";
 import Icon from "react-native-vector-icons/Feather";
 import { Transition, Transitioning } from "react-native-reanimated";
 
-function WeekCalendar() {
+const WeekCalendar = (props) => {
   const [currentIndex, setCurrentIndex] = React.useState(null);
-  //console.log(stock);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      //await props.loadStock("weekly");
+    }, 100);
+  }, []);
   return (
     <ScrollView nestedScrollEnabled={true}>
-      {stock.map((data, index) => {
+      {/* {props.weeklyStocks.map((data, index) => {
         return (
           <View key={index} style={styles.container}>
             <View style={styles.titleTab}>
@@ -36,15 +41,13 @@ function WeekCalendar() {
                 />
               </TouchableOpacity>
             </View>
-            {index === currentIndex && (
-              <EarningContainer key={data.ticker} data={data} />
-            )}
+            {index === currentIndex && <EarningContainer data={data} />}
           </View>
         );
-      })}
+      })} */}
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   titleTab: {

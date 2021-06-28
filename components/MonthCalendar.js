@@ -6,19 +6,18 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
-import stock from "../models/stocks.json";
 import EarningContainer from "./EarningContainer";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
 import Icon from "react-native-vector-icons/Feather";
 import { Transition, Transitioning } from "react-native-reanimated";
 
-function MonthCalendar() {
+const MonthCalendar = (props) => {
   const [currentIndex, setCurrentIndex] = React.useState(null);
   //console.log(stock);
   return (
     <ScrollView nestedScrollEnabled={true}>
-      {stock.map((data, index) => {
+      {/* {props.monthlyStocks.map((data, index) => {
         return (
           <View key={index} style={styles.container}>
             <View style={styles.titleTab}>
@@ -36,15 +35,13 @@ function MonthCalendar() {
                 />
               </TouchableOpacity>
             </View>
-            {index === currentIndex && (
-              <EarningContainer key={data.ticker} data={data} />
-            )}
+            {index === currentIndex && <EarningContainer data={data} />}
           </View>
         );
-      })}
+      })} */}
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   titleTab: {

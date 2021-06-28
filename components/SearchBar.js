@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
-import debounce from "lodash.debounce";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
 import SearchIcon from "react-native-vector-icons/Feather";
-import search from "../src/Pages/search";
 
 const SearchBar = (props) => {
-  console.log(props.searchedStocks);
+  //console.log(props.searchedStocks);
   return (
     <View style={styles.searchBar}>
       <TouchableOpacity onPress={() => props.searchStock(props.searchTerm)}>

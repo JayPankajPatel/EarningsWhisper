@@ -49,6 +49,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.0"
   },
-  "private": true,
-  "proxy": "http://earningswhisper.zapto.org:3000"
+  "proxy": "http://earningswhisper.zapto.org:3000/",
+  "private": true
 }

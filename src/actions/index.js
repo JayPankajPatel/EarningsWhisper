@@ -78,42 +78,10 @@ export const createNewSignUp = ({
   };
 };
 
-export const loadDailyStock = () => {
+export const loadStock = (stock) => {
   return (dispatch) => {
     try {
-      fetch("http://earningswhisper.zapto.org:3000/dailystock")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          dispatch({ type: "LOAD_STOCKS", payload: data });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const loadWeeklyStock = () => {
-  return (dispatch) => {
-    try {
-      fetch("http://earningswhisper.zapto.org:3000/weeklystock")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          dispatch({ type: "LOAD_STOCKS", payload: data });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const loadMonthlyStock = () => {
-  return (dispatch) => {
-    try {
-      fetch("http://earningswhisper.zapto.org:3000/monthlystock")
+      fetch(`http://192.168.1.13:3000/${stock}stock`)
         .then((response) => {
           return response.json();
         })
@@ -149,7 +117,7 @@ export const stockDetail = (stocksymbol) => {
 };
 
 export const searchStock = (stocksymbol) => {
-  console.log(stocksymbol);
+  //console.log(stocksymbol);
   return (dispatch) => {
     fetch(`http://earningswhisper.zapto.org:3000/search`, {
       method: "POST",

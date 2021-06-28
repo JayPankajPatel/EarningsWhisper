@@ -77,12 +77,17 @@ export default (prevState = initialLoginState, action) => {
     case "STOCK":
       return {
         ...prevState,
-        stockDetail: action.payload,
+        stocks: action.payload,
       };
     case "SEARCH":
       return {
         ...prevState,
         searchedStocks: action.payload,
+      };
+    case "STOCK_RESET":
+      return {
+        ...prevState,
+        stocks: [],
       };
     default:
       return {

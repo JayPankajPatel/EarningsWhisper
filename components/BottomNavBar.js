@@ -22,6 +22,7 @@ const BottomNavBar = () => (
       borderTopRightRadius: 18,
       borderColor: "transparent",
       overflow: "hidden",
+      bottom: -5,
     }}
   >
     <Tab.Screen
