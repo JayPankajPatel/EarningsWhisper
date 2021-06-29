@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";

@@ -9,16 +9,16 @@ import {
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
 import SearchBar from "./SearchBar";
-import StockDetail from "./stockDetail";
-
+import StockDetail from "./StockDetail";
+import TopBar from "./TopBar";
 const searchContainer = (props) => {
-  console.log(Object.keys(props.detail).length);
   return (
     <View>
       {Object.keys(props.detail).length > 0 ? (
-        <StockDetail data={props.detail} />
+        <StockDetail />
       ) : (
         <View>
+          <TopBar title={"Search"} />
           <SearchBar />
           <ScrollView>
             {props.searchedStocks.length > 0 &&
@@ -26,9 +26,7 @@ const searchContainer = (props) => {
                 return (
                   <TouchableOpacity
                     key={index}
-                    onPress={() =>
-                      props.stockDetail(toString(data["1. symbol"]))
-                    }
+                    onPress={() => props.stockDetail(data["1. symbol"])}
                   >
                     <View style={styles.searchContainer}>
                       <Text style={styles.searchText}>{data["1. symbol"]}</Text>

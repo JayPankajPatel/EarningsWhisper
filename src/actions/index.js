@@ -32,7 +32,7 @@ export const handlePasswordChange = (val) => {
 export const loadUsers = () => {
   return (dispatch) => {
     try {
-      fetch("http://earningswhisper.zapto.org:3000/userinfo")
+      fetch("http://192.168.1.13:3000/userinfo")
         .then((response) => {
           return response.json();
         })
@@ -54,7 +54,7 @@ export const createNewSignUp = ({
   answer,
 }) => {
   return (dispatch) => {
-    fetch("http://earningswhisper.zapto.org:3000/signup", {
+    fetch("http://192.168.1.13:3000/signup", {
       method: "POST",
       body: JSON.stringify({
         username: username,
@@ -86,7 +86,7 @@ export const loadStock = (stock) => {
           return response.json();
         })
         .then((data) => {
-          dispatch({ type: "LOAD_STOCKS", payload: data });
+          dispatch({ type: "LOAD_STOCKS", payload: { stock, data } });
         });
     } catch (error) {
       console.log(error);
@@ -95,9 +95,9 @@ export const loadStock = (stock) => {
 };
 
 export const stockDetail = (stocksymbol) => {
-  console.log(stocksymbol);
+  //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://earningswhisper.zapto.org:3000/stockinfo`, {
+    fetch(`http://192.168.1.13:3000/stockinfo`, {
       method: "POST",
       body: JSON.stringify({
         stocksymbol: stocksymbol,
@@ -115,11 +115,17 @@ export const stockDetail = (stocksymbol) => {
       });
   };
 };
+export const unLoadStock = () => {
+  //console.log(stocksymbol);
+  return (dispatch) => {
+    dispatch({ type: "UNLOAD", payload: [] });
+  };
+};
 
 export const searchStock = (stocksymbol) => {
   //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://earningswhisper.zapto.org:3000/search`, {
+    fetch(`http://192.168.1.13:3000/search`, {
       method: "POST",
       body: JSON.stringify({
         search: stocksymbol,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TouchableOpacity,
   View,
@@ -15,36 +15,39 @@ import { Transition, Transitioning } from "react-native-reanimated";
 
 const WeekCalendar = (props) => {
   const [currentIndex, setCurrentIndex] = React.useState(null);
-
+  const [isLoaded, setisLoaded] = useState(false);
+  //console.log(Object.keys(props.weeklyStocks).length > 0);
   useEffect(() => {
-    setTimeout(async () => {
-      //await props.loadStock("weekly");
-    }, 100);
+    props.loadStock("weekly");
+    if (Object.keys(props.weeklyStocks).length > 0) {
+      setisLoaded(true);
+    }
   }, []);
   return (
     <ScrollView nestedScrollEnabled={true}>
-      {/* {props.weeklyStocks.map((data, index) => {
-        return (
-          <View key={index} style={styles.container}>
-            <View style={styles.titleTab}>
-              <Text style={styles.title}>May 24th-28th</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  setCurrentIndex(index === currentIndex ? null : index);
-                }}
-                activeOpacity={0.9}
-              >
-                <Icon
-                  name={"chevron-down"}
-                  size={40}
-                  style={{ color: "#F5ECDE", marginRight: 5 }}
-                />
-              </TouchableOpacity>
+      {isLoaded === true &&
+        props.weeklyStocks.time.map((data, index) => {
+          return (
+            <View key={index} style={styles.container}>
+              <View style={styles.titleTab}>
+                <Text style={styles.title}>May 24th-28th</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setCurrentIndex(index === currentIndex ? null : index);
+                  }}
+                  activeOpacity={0.9}
+                >
+                  <Icon
+                    name={"chevron-down"}
+                    size={40}
+                    style={{ color: "#F5ECDE", marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+              </View>
+              {index === currentIndex && <EarningContainer data={data} />}
             </View>
-            {index === currentIndex && <EarningContainer data={data} />}
-          </View>
-        );
-      })} */}
+          );
+        })}
     </ScrollView>
   );
 };

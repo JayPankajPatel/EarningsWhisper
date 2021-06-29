@@ -24,6 +24,7 @@ const BottomNavBar = () => (
       overflow: "hidden",
       bottom: -5,
     }}
+    lazy={false}
   >
     <Tab.Screen
       name="Home"

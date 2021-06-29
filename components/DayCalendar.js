@@ -5,38 +5,42 @@ import * as actions from "../src/actions";
 import EarningsBar from "./EarningsBar";
 
 const DayCalendar = (props) => {
-  const [dailyStocks, setDailyStocks] = useState({});
+  const [isLoaded, setisLoaded] = useState(false);
   useEffect(() => {
     props.loadStock("daily");
+    if (Object.keys(props.dailyStocks).length > 0) {
+      setisLoaded(true);
+      console.log(props.dailyStocks);
+    }
   }, []);
-  console.log(props.dailyStocks);
   return (
     <ScrollView nestedScrollEnabled={true}>
-      {props.dailyStocks.map(
-        ({ companyshortname, epsactual, epsestimate, ticker }, index) => {
-          return (
-            <EarningsBar
-              key={index}
-              companyName={companyshortname}
-              companyAbbrev={ticker}
-              companyEPS={epsestimate}
-              companyRev={"$3.28"}
-              companyActualEPS={epsactual}
-              companyActualRES={"$5.66"}
-              companyGrowthEPS={"103.3%"}
-              companyGrowthRev={"83.8%"}
-              arrow={"good"}
-            />
-          );
-        }
-      )}
+      {isLoaded === true &&
+        props.dailyStocks.time.map(
+          ({ companyshortname, epsactual, epsestimate, ticker }, index) => {
+            return (
+              <EarningsBar
+                key={index}
+                companyName={companyshortname}
+                companyAbbrev={ticker}
+                companyEPS={epsestimate}
+                companyRev={"$3.28"}
+                companyActualEPS={epsactual}
+                companyActualRES={"$5.66"}
+                companyGrowthEPS={"103.3%"}
+                companyGrowthRev={"83.8%"}
+                arrow={"good"}
+              />
+            );
+          }
+        )}
     </ScrollView>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    dailyStocks: state.stocks,
+    dailyStocks: state.calendar.daily,
   };
 };
 

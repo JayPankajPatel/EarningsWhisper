@@ -1,6 +1,11 @@
 export const initialLoginState = {
   users: [],
   searchedStocks: [],
+  calendar: {
+    daily: [],
+    weekly: [],
+    monthly: [],
+  },
   stocks: [],
   searchTerm: null,
   isLoading: true,
@@ -27,7 +32,9 @@ export default (prevState = initialLoginState, action) => {
     case "LOAD_STOCKS":
       return {
         ...prevState,
-        stocks: action.payload,
+        calendar: {
+          [action.payload.prop]: action.payload.value,
+        },
       };
 
     case "RETRIEVE_TOKEN":
@@ -75,6 +82,11 @@ export default (prevState = initialLoginState, action) => {
         [action.payload.prop]: action.payload.value,
       };
     case "STOCK":
+      return {
+        ...prevState,
+        stocks: action.payload,
+      };
+    case "UNLOAD":
       return {
         ...prevState,
         stocks: action.payload,

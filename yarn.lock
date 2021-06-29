@@ -3795,6 +3795,11 @@
     "statuses" ">= 1.5.0 < 2"
     "toidentifier" "1.0.0"
 
+"https@^1.0.0":
+  "integrity" "sha1-PDfHrhqO65ZpBKKtHpdaGUt+06Q="
+  "resolved" "https://registry.npmjs.org/https/-/https-1.0.0.tgz"
+  "version" "1.0.0"
+
 "hyphenate-style-name@^1.0.2", "hyphenate-style-name@^1.0.3":
   "integrity" "sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ=="
   "resolved" "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz"

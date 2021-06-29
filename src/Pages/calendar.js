@@ -21,20 +21,7 @@ function calendar({ navigation, profileName }) {
       {/* Calendar Stuff */}
       <View style={styles.calendarStuff}>
         <CalendarNavBar />
-        {/* <EarningsBar
-          companyName={"NVIDIA Corp."}
-          companyAbbrev={"NVDA"}
-          companyEPS={"$3.28"}
-          companyRev={"$3.28"}
-          companyActualEPS={"$3.66"}
-          companyActualRES={"$5.66"}
-          companyGrowthEPS={"103.3%"}
-          companyGrowthRev={"83.8%"}
-          arrow={"good"}
-        /> */}
       </View>
-      {/*Transactions */}
-      <View style={styles.transactions}></View>
     </View>
   );
 }

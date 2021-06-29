@@ -17,6 +17,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import BoxInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
 import * as actions from "../src/actions";
+import { createWallet } from "../src/rapyd/rapyd";
 
 import {
   Roboto_100Thin,
@@ -63,7 +64,7 @@ const signUp = (props) => {
       question,
       answer,
     });
-
+    createWallet();
     props.navigation.navigate("Login");
   };
 
