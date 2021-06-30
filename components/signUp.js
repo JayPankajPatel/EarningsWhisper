@@ -83,6 +83,91 @@ const signUp = (props) => {
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
+          textLabel={"First Name:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.fname}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "fname", value })}
+        />
+
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"Last Name:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.lname}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "lname", value })}
+        />
+
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"Birth Date:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.birthdate}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "birthdate", value })}
+        />
+
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"Phone:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.phone}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "phone", value })}
+        />
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"Address:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.address}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "address", value })}
+        />
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"City:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.city}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "city", value })}
+        />
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"State:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.state}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "state", value })}
+        />
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"Zip Code:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.zipcode}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "zipcode", value })}
+        />
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
+          textLabel={"Country:"}
+          inputBox={styles.TextInputWrapper}
+          value={props.country}
+          inputStyleText={styles.TextInput}
+          setChange={(value) => props.formUpdate({ prop: "country", value })}
+        />
+
+        <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"USERNAME"}
           inputBox={styles.TextInputWrapper}
           value={props.username}
@@ -225,6 +310,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const {
+    fname,
+    lname,
     username,
     password,
     confirmPassword,
@@ -234,6 +321,8 @@ const mapStateToProps = (state) => {
     answer,
   } = state;
   return {
+    fname,
+    lname,
     username,
     password,
     confirmPassword,
