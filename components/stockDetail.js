@@ -11,6 +11,7 @@ import * as actions from "../src/actions";
 import TopBar from "./TopBar";
 
 const StockDetail = (props) => {
+  setGrade(props.grade);
   const [grade, setGrade] = useState("A");
   const [gradeColor, setGradeColor] = useState("18B00B");
 
@@ -169,6 +170,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     detail: state.stocks,
+    grade: state.grade,
   };
 };
 

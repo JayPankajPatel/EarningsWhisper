@@ -40,7 +40,7 @@ const DayCalendar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    dailyStocks: state.calendar.daily,
+    dailyStocks: state.daily,
   };
 };
 

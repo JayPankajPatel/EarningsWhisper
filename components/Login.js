@@ -13,6 +13,7 @@ import * as actions from "../src/actions";
 
 import BoxInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = (props) => {
   const { signIn } = React.useContext(AuthContext);
@@ -20,10 +21,13 @@ const Login = (props) => {
     props.loadUsers();
     console.log(props.users.user);
   }, []);
-  const handleLogin = (userName, password) => {
+  const handleLogin = async (userName, password) => {
     var user = props.users.user.filter(function (e) {
       return e.username === userName;
     });
+    props.loaduser(user[0]);
+    console.log(user[0]);
+    await AsyncStorage.setItem("ewallet", user[0].ewallet_id);
     if (
       user != null &&
       user[0].username === userName &&

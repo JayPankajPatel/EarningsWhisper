@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    weeklyStocks: state.stocks,
+    weeklyStocks: state.weekly,
   };
 };
 

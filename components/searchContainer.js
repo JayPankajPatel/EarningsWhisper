@@ -12,6 +12,8 @@ import SearchBar from "./SearchBar";
 import StockDetail from "./StockDetail";
 import TopBar from "./TopBar";
 const searchContainer = (props) => {
+  console.log(props.searchedStocks);
+  //console.log(props.detail);
   return (
     <View>
       {Object.keys(props.detail).length > 0 ? (
@@ -26,7 +28,10 @@ const searchContainer = (props) => {
                 return (
                   <TouchableOpacity
                     key={index}
-                    onPress={() => props.stockDetail(data["1. symbol"])}
+                    onPress={() => {
+                      props.stockGrade(data["1. symbol"]);
+                      props.stockDetail(data["1. symbol"]);
+                    }}
                   >
                     <View style={styles.searchContainer}>
                       <Text style={styles.searchText}>{data["1. symbol"]}</Text>

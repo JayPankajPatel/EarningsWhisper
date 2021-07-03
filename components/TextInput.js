@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 function textInput({
   labelBox,
   styleFontText,
@@ -11,7 +11,7 @@ function textInput({
 }) {
   onselect = () => {};
   return (
-    <View>
+    <View style={styles.background}>
       <View style={labelBox}>
         <Text style={styleFontText}>{textLabel}</Text>
       </View>
@@ -20,12 +20,22 @@ function textInput({
         <TextInput
           value={value}
           style={inputStyleText}
-          placeholder="e.g JohnDoe123"
+          placeholder="e.g 1000"
+          placeholderTextColor="#F5ECDE"
           onChangeText={(val) => setChange(val)}
         />
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  background: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default textInput;

@@ -31,36 +31,49 @@ export const handlePasswordChange = (val) => {
 
 export const loadUsers = () => {
   return (dispatch) => {
-    try {
-      fetch("http://192.168.1.13:3000/userinfo")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          dispatch({ type: "LOAD_USERS", payload: data });
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    fetch("http://192.168.1.21:3000/userinfo")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        dispatch({ type: "LOAD_USERS", payload: data });
+      })
+      .catch((error) => console.log(error));
   };
 };
 
 export const createNewSignUp = ({
+  fname,
+  lname,
+  birthdate,
+  email,
+  phone,
+  address,
+  zipcode,
+  city,
+  _state,
+  country,
   username,
   password,
-  email,
-  birthdate,
   question,
   answer,
 }) => {
   return (dispatch) => {
-    fetch("http://192.168.1.13:3000/signup", {
+    fetch("http://192.168.1.21:3000/signup", {
       method: "POST",
       body: JSON.stringify({
+        fname: fname,
+        lname: lname,
+        birthdate: birthdate,
+        email: email,
+        phone: phone,
+        address: address,
+        zipcode: zipcode,
+        city: city,
+        _state: _state,
+        country: country,
         username: username,
         password: password,
-        email: email,
-        birthdate: birthdate,
         question: question,
         answer: answer,
       }),
@@ -74,30 +87,28 @@ export const createNewSignUp = ({
       })
       .then(() => {
         dispatch({ type: "SIGNUP" });
-      });
+      })
+      .catch((error) => console.log(error));
   };
 };
 
 export const loadStock = (stock) => {
   return (dispatch) => {
-    try {
-      fetch(`http://192.168.1.13:3000/${stock}stock`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          dispatch({ type: "LOAD_STOCKS", payload: { stock, data } });
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    fetch(`http://192.168.1.21:3000/${stock}stock`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        dispatch({ type: "LOAD_STOCKS", payload: { stock, data } });
+      })
+      .catch((error) => console.log(error));
   };
 };
 
 export const stockDetail = (stocksymbol) => {
   //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://192.168.1.13:3000/stockinfo`, {
+    fetch(`http://192.168.1.21:3000/stockinfo`, {
       method: "POST",
       body: JSON.stringify({
         stocksymbol: stocksymbol,
@@ -112,23 +123,18 @@ export const stockDetail = (stocksymbol) => {
       })
       .then((data) => {
         dispatch({ type: "STOCK", payload: data });
-      });
-  };
-};
-export const unLoadStock = () => {
-  //console.log(stocksymbol);
-  return (dispatch) => {
-    dispatch({ type: "UNLOAD", payload: [] });
+      })
+      .catch((error) => console.log(error));
   };
 };
 
-export const searchStock = (stocksymbol) => {
+export const stockGrade = (stocksymbol) => {
   //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://192.168.1.13:3000/search`, {
+    fetch(`http://192.168.1.21:3000/grade`, {
       method: "POST",
       body: JSON.stringify({
-        search: stocksymbol,
+        stocksymbol: stocksymbol,
       }),
       headers: {
         Accept: "application/json",
@@ -139,7 +145,91 @@ export const searchStock = (stocksymbol) => {
         return data.json();
       })
       .then((data) => {
+        dispatch({ type: "GRADE", payload: data });
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const unLoadStock = () => {
+  //console.log(stocksymbol);
+  return (dispatch) => {
+    dispatch({ type: "UNLOAD", payload: [] });
+  };
+};
+
+export const searchStock = (stocksymbol) => {
+  //console.log(stocksymbol);
+  return (dispatch) => {
+    fetch(`http://192.168.1.21:3000/search`, {
+      method: "POST",
+      body: JSON.stringify({
+        search: stocksymbol,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
         dispatch({ type: "SEARCH", payload: data });
-      });
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const loaduser = (user) => {
+  return {
+    type: "LOADUSER",
+    fname: user.fname,
+    lname: user.lname,
+    birthdate: user.birthdate,
+    email: user.email,
+    phone: user.phone,
+    address: user.address,
+    zipcode: user.zipcode,
+    city: user.city,
+    state: user.state,
+    country: user.country,
+    username: user.username,
+    email: user.email,
+    ewallet: user.ewallet_id,
+  };
+};
+
+export const grabuserinfo = (ewallet) => {
+  return () => {
+    fetch(`http://192.168.1.21:3000/user`, {
+      method: "POST",
+      body: JSON.stringify({
+        ewallet: ewallet,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => loaduser(data.user[0]))
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getWalBal = (ewallet) => {
+  return (dispatch) => {
+    fetch("http://192.168.1.21:3000/getWalletBal", {
+      method: "POST",
+      body: JSON.stringify({
+        ewallet: ewallet,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: "WALLET_BAL", ewalletBal: data }))
+      .catch((error) => console.log(error));
   };
 };

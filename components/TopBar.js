@@ -5,7 +5,7 @@ import Logo from "../src/resources/logo";
 import PersonImg from "../src/resources/person";
 import { LinearGradient } from "expo-linear-gradient";
 
-function TopBar({ title }) {
+const TopBar = (props) => {
   return (
     <View style={[styles.navbar]}>
       <LinearGradient
@@ -13,7 +13,7 @@ function TopBar({ title }) {
         style={styles.logoContainer}
       >
         <Logo />
-        <Text style={styles.logoTitle}>{title}</Text>
+        <Text style={styles.logoTitle}>{props.title}</Text>
         {/*Person Touchable Opacity TODO:*/}
         <TouchableOpacity>
           <PersonImg />
@@ -21,7 +21,7 @@ function TopBar({ title }) {
       </LinearGradient>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   navbar: {

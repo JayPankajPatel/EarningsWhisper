@@ -4,20 +4,15 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
-import { Directions } from "react-native-gesture-handler";
 import Logo from "../src/resources/logo";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/roboto";
 import { LinearGradient } from "expo-linear-gradient";
-import { createStackNavigator } from "@react-navigation/stack";
 import BoxInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
 import * as actions from "../src/actions";
-import { createWallet } from "../src/rapyd/rapyd";
 
 import {
   Roboto_100Thin,
@@ -54,18 +49,40 @@ const signUp = (props) => {
   });
 
   onAddPress = () => {
-    const { username, password, email, birthdate, question, answer } = props;
-
-    props.createNewSignUp({
+    const {
+      fname,
+      lname,
+      birthdate,
+      email,
+      phone,
+      address,
+      zipcode,
+      city,
+      _state,
+      country,
       username,
       password,
-      email,
+      question,
+      answer,
+    } = props;
+
+    props.createNewSignUp({
+      fname,
+      lname,
       birthdate,
+      email,
+      phone,
+      address,
+      zipcode,
+      city,
+      _state,
+      country,
+      username,
+      password,
       question,
       answer,
     });
-    createWallet();
-    props.navigation.navigate("Login");
+    //props.navigation.navigate("Login");
   };
 
   if (!fontsLoaded) {
@@ -142,7 +159,7 @@ const signUp = (props) => {
           styleFontText={styles.Text}
           textLabel={"State:"}
           inputBox={styles.TextInputWrapper}
-          value={props.state}
+          value={props._state}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "state", value })}
         />
@@ -312,22 +329,32 @@ const mapStateToProps = (state) => {
   const {
     fname,
     lname,
+    birthdate,
+    email,
+    phone,
+    address,
+    zipcode,
+    city,
+    _state,
+    country,
     username,
     password,
-    confirmPassword,
-    email,
-    birthdate,
     question,
     answer,
   } = state;
   return {
     fname,
     lname,
+    birthdate,
+    email,
+    phone,
+    address,
+    zipcode,
+    city,
+    _state,
+    country,
     username,
     password,
-    confirmPassword,
-    email,
-    birthdate,
     question,
     answer,
   };

@@ -1,12 +1,11 @@
 export const initialLoginState = {
   users: [],
   searchedStocks: [],
-  calendar: {
-    daily: [],
-    weekly: [],
-    monthly: [],
-  },
+  daily: [],
+  weekly: [],
+  monthly: [],
   stocks: [],
+  grade: null,
   searchTerm: null,
   isLoading: true,
   user_id: null,
@@ -16,7 +15,7 @@ export const initialLoginState = {
   phone: null,
   address: null,
   city: null,
-  state: null,
+  _state: null,
   zipcode: null,
   country: null,
   username: null,
@@ -28,6 +27,7 @@ export const initialLoginState = {
   userToken: null,
   isValidUser: true,
   isValidPassword: true,
+  ewallet: null,
 };
 
 export default (prevState = initialLoginState, action) => {
@@ -37,12 +37,27 @@ export default (prevState = initialLoginState, action) => {
         ...prevState,
         users: action.payload,
       };
+    case "LOADUSER": {
+      return {
+        ...prevState,
+        fname: action.fname,
+        lname: action.lname,
+        birthdate: action.birthdate,
+        phone: action.phone,
+        address: action.address,
+        city: action.city,
+        _state: action.state,
+        zipcode: action.zipcode,
+        country: action.country,
+        username: action.username,
+        email: action.email,
+        ewallet: action.ewallet,
+      };
+    }
     case "LOAD_STOCKS":
       return {
         ...prevState,
-        calendar: {
-          [action.payload.prop]: action.payload.value,
-        },
+        [action.payload.prop]: action.payload.value,
       };
 
     case "RETRIEVE_TOKEN":
@@ -93,6 +108,11 @@ export default (prevState = initialLoginState, action) => {
       return {
         ...prevState,
         stocks: action.payload,
+      };
+    case "GRADE":
+      return {
+        ...prevState,
+        grade: action.payload,
       };
     case "UNLOAD":
       return {

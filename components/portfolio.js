@@ -1,13 +1,36 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import * as actions from "../src/actions";
+import { connect } from "react-redux";
 
-const Portfolio = () => {
+const Portfolio = (props) => {
+  const [bal, setBal] = useState([]);
+  const [overallTime, setTime] = useState([]);
+
+  //setInterval(checkProf, 60000);
+
+  async function checkProf() {
+    var balance = props.getWalBal(await AsyncStorage.getItem("ewallet"));
+    if (balance == undefined) {
+      setBal([...bal, 0]);
+    } else {
+      setBal([...bal, balance]);
+    }
+    setTime([
+      ...overallTime,
+      `${new Date().getHours()}:${new Date().getMinutes()} `,
+    ]);
+    //console.log(chartData.data + " " + chartData.time);
+  }
+
   const [chartData, setChartData] = React.useState({
     data: [400],
     time: ["6:54"],
   });
   const [index, setIndex] = React.useState(1);
+
   const handlePress = (num) => {
     setIndex(num);
   };
@@ -17,18 +40,15 @@ const Portfolio = () => {
     var dataTime;
     switch (num) {
       case 1:
-        dataTime = [
-          "12:22",
-          "12:33",
-          "12:45",
-          "12:47",
-          "12:55",
-          "01:20",
-          "01:34",
-        ];
-        dataLabel = [230, 220, 210, 200, 213, 245, 300];
+        checkProf();
+        dataTime = overallTime;
+        dataLabel = bal;
         setChartData({ data: dataLabel, time: dataTime });
         break;
+      default:
+        dataTime = overallTime;
+        dataLabel = bal;
+        setChartData({ data: dataLabel, time: dataTime });
     }
   };
 
@@ -90,7 +110,7 @@ const Portfolio = () => {
       <View style={styles.chart}>
         <LineChart
           data={{
-            label: [],
+            label: chartData.time,
             datasets: [
               {
                 data: chartData.data,
@@ -182,4 +202,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Portfolio;
+export default connect(null, actions)(Portfolio);
