@@ -37,6 +37,15 @@ const Send = (props) => {
             inputStyleText={styles.TextInput}
             setChange={(value) => setMoney(value)}
           />
+          <BoxInput
+            labelBox={styles.TextWrapper}
+            styleFontText={styles.Text}
+            textLabel={"Desc:"}
+            inputBox={styles.TextInputWrapper}
+            value={money}
+            inputStyleText={styles.TextInput}
+            setChange={(value) => setMoney(value)}
+          />
           <TouchableOpacity
             style={{
               backgroundColor: "#F5ECDE",
@@ -97,15 +106,15 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#F5ECDE",
-    fontSize: 15,
+    fontSize: 14,
     textAlign: "center",
   },
   TextWrapper: {
-    marginHorizontal: 20,
-    marginVertical: 20,
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
   Text: {
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: "Roboto",
     lineHeight: 18,
     color: "#F5ECDE",
@@ -113,11 +122,11 @@ const styles = StyleSheet.create({
   TextInputWrapper: {
     borderBottomColor: "#F5ECDE",
     borderBottomWidth: 1,
-    marginVertical: 2,
-    marginHorizontal: 2,
+    marginVertical: 1,
+    marginHorizontal: 1,
   },
   TextInput: {
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: "Roboto",
     color: "#F5ECDE",
     width: 150,

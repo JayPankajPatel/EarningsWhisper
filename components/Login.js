@@ -135,31 +135,6 @@ const styles = StyleSheet.create({
     marginTop: 150,
     marginHorizontal: 175,
   },
-  TextWrapper: {
-    marginTop: 60,
-    marginHorizontal: 88,
-  },
-  Text: {
-    fontSize: 10,
-    fontFamily: "Roboto",
-    lineHeight: 18,
-    color: "#FDE0B3",
-  },
-  TextInputWrapper: {
-    marginTop: 4,
-    marginHorizontal: 88,
-    backgroundColor: "transparent",
-    paddingVertical: 5,
-    borderBottomColor: "#FDE0B3",
-    borderBottomWidth: 1,
-  },
-  TextInput: {
-    fontSize: 12,
-    fontFamily: "Roboto",
-    fontWeight: "500",
-    color: "white",
-  },
-
   forgotpasswordWrapper: {
     marginTop: 10,
     marginLeft: 240,
