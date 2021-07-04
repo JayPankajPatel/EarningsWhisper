@@ -98,101 +98,159 @@ const signUp = (props) => {
         </View>
 
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"First Name:"}
+          inputBox={styles.TextInputWrapper}
           value={props.fname}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "fname", value })}
           placeholder={"Ex. Mike"}
         />
 
         <BoxInput
+          labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
           textLabel={"Last Name:"}
+          inputBox={styles.TextInputWrapper}
           value={props.lname}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "lname", value })}
           placeholder={"Ex. Larson"}
         />
 
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"Birth Date:"}
+          inputBox={styles.TextInputWrapper}
           value={props.birthdate}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "birthdate", value })}
           placeholder={"Ex. 05/22/1987"}
         />
 
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"Phone:"}
+          inputBox={styles.TextInputWrapper}
           value={props.phone}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "phone", value })}
           placeholder={"Ex. 6264563232"}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"Address:"}
+          inputBox={styles.TextInputWrapper}
           value={props.address}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "address", value })}
           placeholder={"Ex. 123 Main Street"}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"City:"}
+          inputBox={styles.TextInputWrapper}
           value={props.city}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "city", value })}
           placeholder={"Ex. Tuscon"}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
           textLabel={"State:"}
+          inputBox={styles.TextInputWrapper}
           value={props._state}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "state", value })}
           placeholder={"Ex. UT"}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"Zip Code:"}
+          inputBox={styles.TextInputWrapper}
           value={props.zipcode}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "zipcode", value })}
           placeholder={"Ex. 34235"}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"Country:"}
+          inputBox={styles.TextInputWrapper}
           value={props.country}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "country", value })}
           placeholder={"Ex. US"}
         />
 
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"USERNAME"}
+          inputBox={styles.TextInputWrapper}
           value={props.username}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "username", value })}
           placeholder={"Ex. greg"}
         />
 
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"EMAIL"}
+          inputBox={styles.TextInputWrapper}
           value={props.email}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "email", value })}
           placeholder={"Ex. gorg@gmail.com"}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"PASSWORD"}
+          inputBox={styles.TextInputWrapper}
           value={props.password}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "password", value })}
           placeholder={"Ex. ..."}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"CONFIRM PASSWORD"}
           value={props.confirmPassword}
+          inputBox={styles.TextInputWrapper}
+          inputStyleText={styles.TextInput}
           setChange={(value) =>
             props.formUpdate({ prop: "confirmPassword", value })
           }
           placeholder={"Ex..."}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"SECURITY QUESTION"}
+          inputBox={styles.TextInputWrapper}
           value={props.question}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "question", value })}
           placeholder={"Ex. What is your favorite dog?"}
         />
         <BoxInput
+          labelBox={styles.TextWrapper}
+          styleFontText={styles.Text}
           textLabel={"ANSWER"}
+          inputBox={styles.TextInputWrapper}
           value={props.answer}
+          inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "answer", value })}
           placeholder={"Ex. Spike"}
         />
