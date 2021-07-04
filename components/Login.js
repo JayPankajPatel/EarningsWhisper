@@ -6,6 +6,7 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import Logo from "../src/resources/logo";
 import { connect } from "react-redux";
@@ -49,14 +50,19 @@ const Login = (props) => {
         </View>
 
         {/* Username */}
-        <BoxInput
-          labelBox={styles.TextWrapper}
-          styleFontText={styles.Text}
-          textLabel={"Username"}
-          inputBox={styles.TextInputWrapper}
-          inputStyleText={styles.TextInput}
-          setChange={props.handleUserChange}
-        />
+        <View style={styles.TextWrapper}>
+          <Text style={styles.Text}>Username: </Text>
+        </View>
+
+        <View style={styles.TextInputWrapper}>
+          <TextInput
+            value={props.username}
+            style={styles.TextInput}
+            placeholder={"Ex. greg"}
+            placeholderTextColor="#3C3831"
+            onChangeText={(val) => setChange(val)}
+          />
+        </View>
         {props.isValidUser ? null : (
           <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>
@@ -66,14 +72,19 @@ const Login = (props) => {
         )}
 
         {/* Password  */}
-        <BoxInput
-          labelBox={styles.TextWrapper}
-          styleFontText={styles.Text}
-          textLabel={"Password"}
-          inputBox={styles.TextInputWrapper}
-          inputStyleText={styles.TextInput}
-          setChange={props.handlePasswordChange}
-        />
+        <View style={styles.TextWrapper}>
+          <Text style={styles.Text}>Password: </Text>
+        </View>
+
+        <View style={styles.TextInputWrapper}>
+          <TextInput
+            value={props.password}
+            style={styles.TextInput}
+            placeholder={"Ex. momma123"}
+            placeholderTextColor="#3C3831"
+            onChangeText={(val) => setChange(val)}
+          />
+        </View>
 
         {props.isValidPassword ? null : (
           <Animatable.View animation="fadeInLeft" duration={500}>
@@ -202,6 +213,34 @@ const styles = StyleSheet.create({
     color: "#FDE0B3",
     justifyContent: "center",
     alignItems: "center",
+  },
+  TextWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 20,
+    marginVertical: 20,
+  },
+  Text: {
+    fontSize: 15,
+    fontFamily: "Roboto",
+    lineHeight: 18,
+    color: "#F5ECDE",
+  },
+  TextInputWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    marginHorizontal: 100,
+    borderBottomColor: "#F5ECDE",
+    borderBottomWidth: 1,
+    marginVertical: 2,
+  },
+  TextInput: {
+    fontSize: 15,
+    height: 20,
+    fontFamily: "Roboto",
+    width: 150,
   },
   errorMsg: {
     marginHorizontal: 88,

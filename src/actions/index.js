@@ -31,7 +31,7 @@ export const handlePasswordChange = (val) => {
 
 export const loadUsers = () => {
   return (dispatch) => {
-    fetch("http://192.168.1.21:3000/userinfo")
+    fetch("http://earningswhisper.zapto.org:30000/userinfo")
       .then((response) => {
         return response.json();
       })
@@ -59,7 +59,7 @@ export const createNewSignUp = ({
   answer,
 }) => {
   return (dispatch) => {
-    fetch("http://192.168.1.21:3000/signup", {
+    fetch("http://earningswhisper.zapto.org:30000/signup", {
       method: "POST",
       body: JSON.stringify({
         fname: fname,
@@ -94,7 +94,7 @@ export const createNewSignUp = ({
 
 export const loadStock = (stock) => {
   return (dispatch) => {
-    fetch(`http://192.168.1.21:3000/${stock}stock`)
+    fetch(`http://earningswhisper.zapto.org:30000/${stock}stock`)
       .then((response) => {
         return response.json();
       })
@@ -108,7 +108,7 @@ export const loadStock = (stock) => {
 export const stockDetail = (stocksymbol) => {
   //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://192.168.1.21:3000/stockinfo`, {
+    fetch(`http://earningswhisper.zapto.org:30000/stockinfo`, {
       method: "POST",
       body: JSON.stringify({
         stocksymbol: stocksymbol,
@@ -131,7 +131,7 @@ export const stockDetail = (stocksymbol) => {
 export const stockGrade = (stocksymbol) => {
   //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://192.168.1.21:3000/grade`, {
+    fetch(`http://earningswhisper.zapto.org:30000/grade`, {
       method: "POST",
       body: JSON.stringify({
         stocksymbol: stocksymbol,
@@ -161,7 +161,7 @@ export const unLoadStock = () => {
 export const searchStock = (stocksymbol) => {
   //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://192.168.1.21:3000/search`, {
+    fetch(`http://earningswhisper.zapto.org:30000/search`, {
       method: "POST",
       body: JSON.stringify({
         search: stocksymbol,
@@ -200,7 +200,7 @@ export const loaduser = (user) => {
 
 export const grabuserinfo = (ewallet) => {
   return () => {
-    fetch(`http://192.168.1.21:3000/user`, {
+    fetch(`http://earningswhisper.zapto.org:30000/search`, {
       method: "POST",
       body: JSON.stringify({
         ewallet: ewallet,
@@ -218,7 +218,7 @@ export const grabuserinfo = (ewallet) => {
 
 export const getWalBal = (ewallet) => {
   return (dispatch) => {
-    fetch("http://192.168.1.21:3000/getWalletBal", {
+    fetch("http://earningswhisper.zapto.org:30000/getWalletBal", {
       method: "POST",
       body: JSON.stringify({
         ewallet: ewallet,

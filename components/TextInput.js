@@ -9,6 +9,7 @@ function textInput({
   inputStyleText,
   setChange,
   placeholder,
+  placeholderColor,
 }) {
   onselect = () => {};
   return (
@@ -22,7 +23,7 @@ function textInput({
           value={value}
           style={inputStyleText}
           placeholder={placeholder}
-          placeholderTextColor="#F5ECDE"
+          placeholderTextColor={placeholderColor}
           onChangeText={(val) => setChange(val)}
         />
       </View>
