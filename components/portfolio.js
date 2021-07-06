@@ -12,11 +12,12 @@ const Portfolio = (props) => {
   //setInterval(checkProf, 60000);
 
   async function checkProf() {
-    var balance = props.getWalBal(await AsyncStorage.getItem("ewallet"));
-    if (balance == undefined) {
+    props.getWalBal(await AsyncStorage.getItem("ewallet"));
+    if (props.balance.balance == undefined) {
       setBal([...bal, 0]);
     } else {
-      setBal([...bal, balance]);
+      console.log(props.balance.balance);
+      setBal([...bal, props.balance.balance]);
     }
     setTime([
       ...overallTime,
@@ -202,4 +203,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, actions)(Portfolio);
+const mapStateToProps = (state) => {
+  return {
+    detail: state.stocks,
+    grade: state.grade,
+    balance: state.ewalletBal,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Portfolio);

@@ -28,6 +28,7 @@ export const initialLoginState = {
   isValidUser: true,
   isValidPassword: true,
   ewallet: null,
+  ewalletBal: null,
 };
 
 export default (prevState = initialLoginState, action) => {
@@ -54,6 +55,11 @@ export default (prevState = initialLoginState, action) => {
         ewallet: action.ewallet,
       };
     }
+    case "WALLET_BAL":
+      return {
+        ...prevState,
+        ewalletBal: action.ewalletBal,
+      };
     case "LOAD_STOCKS":
       return {
         ...prevState,

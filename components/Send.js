@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import {
   View,
@@ -5,19 +6,31 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import BoxInput from "./TextInput";
 const Send = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [money, setMoney] = useState("");
+  const [email, setEmail] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const handleMoneyTransfer = async () => {
+    props.TransferMoney(
+      await AsyncStorage.getItem("ewallet"),
+      money,
+      email,
+      desc
+    );
+  };
+
   return (
     <View style={[isOpen === true ? styles.background : styles.button]}>
       {isOpen == true ? (
-        <View>
+        <ScrollView style={styles.ground}>
           <Text style={styles.text}>Send</Text>
           <BoxInput
             labelBox={styles.TextWrapper}
@@ -33,18 +46,18 @@ const Send = (props) => {
             styleFontText={styles.Text}
             textLabel={"Enter Email:"}
             inputBox={styles.TextInputWrapper}
-            value={money}
+            value={email}
             inputStyleText={styles.TextInput}
-            setChange={(value) => setMoney(value)}
+            setChange={(value) => setEmail(value)}
           />
           <BoxInput
             labelBox={styles.TextWrapper}
             styleFontText={styles.Text}
             textLabel={"Desc:"}
             inputBox={styles.TextInputWrapper}
-            value={money}
+            value={desc}
             inputStyleText={styles.TextInput}
-            setChange={(value) => setMoney(value)}
+            setChange={(value) => setDesc(value)}
           />
           <TouchableOpacity
             style={{
@@ -55,11 +68,14 @@ const Send = (props) => {
               marginVertical: 10,
               right: -10,
             }}
-            onPress={() => setIsOpen(false)}
+            onPress={() => {
+              setIsOpen(false);
+              handleMoneyTransfer();
+            }}
           >
             <Text style={[styles.text, { color: "#323232" }]}>Submit</Text>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
       ) : (
         <TouchableOpacity
           onPress={() => {
@@ -94,7 +110,7 @@ const styles = StyleSheet.create({
   background: {
     position: "absolute",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "flex-start",
     borderRadius: 10,
@@ -104,9 +120,13 @@ const styles = StyleSheet.create({
     left: 55,
     backgroundColor: "rgba(35,34,32,0.8)",
   },
+  ground: {
+    display: "flex",
+  },
   text: {
     color: "#F5ECDE",
-    fontSize: 14,
+    fontSize: 18,
+    fontWeight: "900",
     textAlign: "center",
   },
   TextWrapper: {
