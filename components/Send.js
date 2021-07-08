@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import * as actions from "../src/actions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BoxInput from "./TextInput";
+
+ 
 const Send = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [money, setMoney] = useState("");
