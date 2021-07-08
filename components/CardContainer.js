@@ -5,14 +5,34 @@ import TopBar from "./TopBar";
 import Logo from "../src/resources/logo";
 import Chip from "../src/resources/chip";
 import { LinearGradient } from "expo-linear-gradient";
+import { connect } from "react-redux";
+import * as actions from "../src/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CardContainer = (props) => {
   const [isOn, setOn] = useState(false);
+  const [firstTime, setFirst] = useState(true);
+  const [isLoading, setisLoading] = useState(true);
+
   return (
     <View style={{ flex: 1 }}>
       <TopBar title={"Card"} />
-      <TouchableOpacity style={{ flex: 1 }} onPress={() => setOn(!isOn)}>
-        {isOn == true ? (
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        onPress={async () => {
+          setOn(!isOn);
+          if (isOn == false) {
+            props.loadCard(await AsyncStorage.getItem("ewallet"));
+            if (props.cardNum !== null) {
+              setisLoading(false);
+            }
+          }
+          // if(firstTime == true){
+
+          // }
+        }}
+      >
+        {isOn == true && isLoading == false ? (
           <LinearGradient
             start={{ x: 1, y: 0 }}
             end={{ x: 0, y: 0 }}
@@ -24,11 +44,15 @@ const CardContainer = (props) => {
             style={styles.background}
           >
             <View style={styles.strip}></View>
-            <Text style={styles.csvText}>CSV: {"234" || props.text}</Text>
-            <Text style={styles.cardText}>1234 5678 9123 1234</Text>
+            <Text style={styles.csvText}>CSV: {props.cardCSV || "234"}</Text>
+            <Text style={styles.cardText}>
+              {props.cardNum || "1234 5678 9123 1234"}
+            </Text>
             <View style={styles.csv}></View>
-            <Text style={styles.text}>John Doe</Text>
-            <Text style={styles.date}>Exp: {"03/23" || props.date}</Text>
+            <Text style={styles.text}>
+              {`${props.fname} ${props.lname}` || "John Doe"}
+            </Text>
+            <Text style={styles.date}>Exp: {props.cardExp || "03/23"}</Text>
           </LinearGradient>
         ) : (
           <LinearGradient
@@ -77,7 +101,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontSize: 22,
     zIndex: 6,
-    top: 400,
+    top: 370,
     right: -5,
     letterSpacing: 4,
     transform: [{ rotate: "270deg" }],
@@ -129,7 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     position: "absolute",
     zIndex: 7,
-    top: 320,
+    top: 340,
     left: 70,
     letterSpacing: 3,
     transform: [{ rotate: "270deg" }],
@@ -138,11 +162,24 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontSize: 22,
     zIndex: 6,
-    top: 200,
+    top: 100,
     right: -10,
     letterSpacing: 4,
     transform: [{ rotate: "270deg" }],
     color: "#F5ECDE",
   },
 });
-export default CardContainer;
+
+const mapStateToProps = (state) => {
+  return {
+    fname: state.fmame,
+    lname: state.lname,
+    cardNum: state.cardNum,
+    cardCSV: state.cardCSV,
+    cardExp: state.cardExp,
+    fname: state.fname,
+    lname: state.lname,
+  };
+};
+
+export default connect(mapStateToProps, actions)(CardContainer);

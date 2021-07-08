@@ -1,3 +1,5 @@
+import { ActionSheetIOS } from "react-native";
+
 export const initialLoginState = {
   users: [],
   searchedStocks: [],
@@ -29,6 +31,9 @@ export const initialLoginState = {
   isValidPassword: true,
   ewallet: null,
   ewalletBal: null,
+  cardNum: null,
+  cardCSV: null,
+  cardExp: null,
 };
 
 export default (prevState = initialLoginState, action) => {
@@ -55,6 +60,15 @@ export default (prevState = initialLoginState, action) => {
         ewallet: action.ewallet,
       };
     }
+    case "LOAD_CARD":
+      return {
+        ...prevState,
+        cardNum: action.cardNum,
+        cardCSV: action.cardCSV,
+        cardExp: action.cardExp,
+        fname: action.fname,
+        lname: action.lname,
+      };
     case "WALLET_BAL":
       return {
         ...prevState,
@@ -66,6 +80,21 @@ export default (prevState = initialLoginState, action) => {
         [action.payload.prop]: action.payload.value,
       };
 
+    case "LOAD_DAILY":
+      return {
+        ...prevState,
+        daily: action.payload,
+      };
+    case "LOAD_WEEKLY":
+      return {
+        ...prevState,
+        weekly: action.payload,
+      };
+    case "LOAD_MONTHLY":
+      return {
+        ...prevState,
+        monthly: action.payload,
+      };
     case "RETRIEVE_TOKEN":
       return {
         ...prevState,
@@ -124,6 +153,7 @@ export default (prevState = initialLoginState, action) => {
       return {
         ...prevState,
         stocks: action.payload,
+        grade: action.grade,
       };
     case "SEARCH":
       return {

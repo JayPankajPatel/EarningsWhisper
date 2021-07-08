@@ -11,10 +11,14 @@ import * as actions from "../src/actions";
 import TopBar from "./TopBar";
 
 const StockDetail = (props) => {
-  const [grade, setGrade] = useState("A");
+  const [grade, setGrade] = useState(" ");
   const [gradeColor, setGradeColor] = useState("18B00B");
-
   useEffect(() => {
+    setTimeout(() => {
+      if (props.grade !== null) {
+        setGrade(props.grade);
+      }
+    }, 1000);
     switch (grade) {
       case "A":
         setGradeColor("18B00B");
@@ -25,6 +29,12 @@ const StockDetail = (props) => {
       case "C":
         setGradeColor("B9BC14");
         break;
+      case "D":
+        setGradeColor("BC960F");
+        break;
+      default:
+        setGradeColor("B2660B");
+        break;
     }
   }, []);
   return (
@@ -34,7 +44,7 @@ const StockDetail = (props) => {
         <View
           style={[styles.gradeContainer, { backgroundColor: `#${gradeColor}` }]}
         >
-          <Text style={styles.gradeText}> {grade} </Text>
+          <Text style={styles.gradeText}> {props.grade} </Text>
         </View>
         <View
           style={{
@@ -169,6 +179,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     detail: state.stocks,
+    grade: state.grade,
   };
 };
 

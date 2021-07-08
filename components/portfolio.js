@@ -13,7 +13,7 @@ const Portfolio = (props) => {
 
   async function checkProf() {
     props.getWalBal(await AsyncStorage.getItem("ewallet"));
-    if (props.balance.balance == undefined) {
+    if (props.balance.balance == 0) {
       setBal([...bal, 0]);
     } else {
       console.log(props.balance.balance);

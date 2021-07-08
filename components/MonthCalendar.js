@@ -15,21 +15,25 @@ import { Transition, Transitioning } from "react-native-reanimated";
 const MonthCalendar = (props) => {
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [isLoaded, setisLoaded] = useState(false);
-  //console.log(Object.keys(props.monthlyStocks).length > 0);
   useEffect(() => {
-    //props.loadStock("monthly");
-    if (Object.keys(props.monthlyStocks).length > 0) {
-      setisLoaded(true);
-    }
+    props.loadMonthlyStock();
+    setTimeout(() => {
+      if (props.monthlyStocks != null) {
+        setisLoaded(true);
+        //console.log(props.weeklyStocks);
+      }
+    }, 300);
   }, []);
   return (
     <ScrollView nestedScrollEnabled={true}>
       {isLoaded === true &&
-        props.monthlyStocks.time.map((data, index) => {
+        props.monthlyStocks.map((data, index) => {
           return (
             <View key={index} style={styles.container}>
               <View style={styles.titleTab}>
-                <Text style={styles.title}>May 24th-28th</Text>
+                <Text style={styles.title}>
+                  {data.time[data.time.length - 1]}
+                </Text>
                 <TouchableOpacity
                   onPress={() => {
                     setCurrentIndex(index === currentIndex ? null : index);
@@ -43,7 +47,7 @@ const MonthCalendar = (props) => {
                   />
                 </TouchableOpacity>
               </View>
-              {index === currentIndex && <EarningContainer data={data} />}
+              {index === currentIndex && <EarningContainer data={data.time} />}
             </View>
           );
         })}
@@ -61,10 +65,10 @@ const styles = StyleSheet.create({
   },
   title: {
     marginHorizontal: 15,
+    fontSize: 12,
     marginTop: 10,
-    width: 110,
+    width: 300,
     paddingBottom: 4,
-    letterSpacing: 1,
     color: "#E9E2D5",
     borderBottomColor: "#EBE2D5",
     borderBottomWidth: 2,
