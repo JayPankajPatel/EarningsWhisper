@@ -3,17 +3,14 @@ import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Feather";
 
-function EarningsBar({
+const EarningsBar = ({
   companyName,
-  companyAbbrev,
-  companyEPS,
-  companyRev,
-  companyActualEPS,
-  companyActualRev,
-  companyGrowthEPS,
-  companyGrowthRev,
-  arrow,
-}) {
+  epsactual,
+  epsestimate,
+  startTime,
+  ticker,
+}) => {
+  //console.log(companyName);
   return (
     <LinearGradient
       style={styles.container}
@@ -24,36 +21,27 @@ function EarningsBar({
           <Text style={[styles.titleText, { textDecorationLine: "underline" }]}>
             Company
           </Text>
-          <Text style={styles.companynameText}>{companyName}</Text>
-          <Text style={styles.titleText}>{companyAbbrev}</Text>
+          <Text style={styles.companynameText}>{companyName.slice(0, 10)}</Text>
+          <Text style={styles.titleText}>{ticker}</Text>
         </View>
 
         <View style={styles.infoWrapper}>
           <Text style={[styles.titleText, { textDecorationLine: "underline" }]}>
             Estimate
           </Text>
-          <Text style={styles.titleText}>EPS: {companyEPS}</Text>
-          <Text style={styles.titleText}>Rev: {companyRev}</Text>
+          <Text style={styles.titleText}>EPS: {epsestimate}</Text>
         </View>
 
         <View style={styles.infoWrapper}>
           <Text style={[styles.titleText, { textDecorationLine: "underline" }]}>
             Actual
           </Text>
-          <Text style={styles.titleText}>{companyActualEPS}</Text>
-          <Text style={styles.titleText}>{companyActualRev}</Text>
+          <Text style={styles.titleText}>{epsactual}</Text>
         </View>
 
         <View style={styles.infoWrapper}>
-          <Text style={[styles.titleText, { textDecorationLine: "underline" }]}>
-            Growth
-          </Text>
-          <Text style={styles.titleText}>{companyGrowthEPS}</Text>
-          <Text style={styles.titleText}>{companyGrowthRev}</Text>
-        </View>
-        <View style={styles.infoWrapper}>
           <Text style={[styles.titleText, { textDecorationLine: "none" }]}>
-            BMO
+            {startTime}
           </Text>
           <Icon
             name={"chevron-down"}
@@ -64,7 +52,7 @@ function EarningsBar({
       </View>
     </LinearGradient>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

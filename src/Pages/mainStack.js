@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import OnOpen from "../../components/onOpen";
 import Login from "../../components/Login";
 import signUp from "../../components/signUp";
+import CardContainer from "../../components/CardContainer";
 
 const MainStack = createStackNavigator();
 

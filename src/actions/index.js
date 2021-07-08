@@ -31,7 +31,7 @@ export const handlePasswordChange = (val) => {
 
 export const loadUsers = () => {
   return (dispatch) => {
-    fetch("http://earningswhisper.zapto.org:30000/userinfo")
+    fetch("http://earningswhisper.zapto.org:3000/userinfo")
       .then((response) => {
         return response.json();
       })
@@ -59,7 +59,7 @@ export const createNewSignUp = ({
   answer,
 }) => {
   return (dispatch) => {
-    fetch("http://earningswhisper.zapto.org:30000/signup", {
+    fetch("http://earningswhisper.zapto.org:3000/signup", {
       method: "POST",
       body: JSON.stringify({
         fname: fname,
@@ -92,23 +92,49 @@ export const createNewSignUp = ({
   };
 };
 
-export const loadStock = (stock) => {
+export const loadDailyStock = (stock) => {
   return (dispatch) => {
-    fetch(`http://earningswhisper.zapto.org:30000/${stock}stock`)
+    fetch(`http://earningswhisper.zapto.org:3000/dailystock`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        dispatch({ type: "LOAD_STOCKS", payload: { stock, data } });
+        earning = data["time"];
+        dispatch({ type: "LOAD_DAILY", payload: earning });
+      })
+      .catch((error) => console.log(error));
+  };
+};
+export const loadWeeklyStock = () => {
+  return (dispatch) => {
+    fetch(`http://earningswhisper.zapto.org:3000/weeklystock`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        earning = data[0]["time"];
+        dispatch({ type: "LOAD_WEEKLY", payload: earning });
+      })
+      .catch((error) => console.log(error));
+  };
+};
+export const loadMonthlyStock = (stock) => {
+  return (dispatch) => {
+    fetch(`http://earningswhisper.zapto.org:3000/monthlystock`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        earning = data;
+        dispatch({ type: "LOAD_MONTHLY", payload: earning });
       })
       .catch((error) => console.log(error));
   };
 };
 
 export const stockDetail = (stocksymbol) => {
-  //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://earningswhisper.zapto.org:30000/stockinfo`, {
+    fetch(`http://earningswhisper.zapto.org:3000/stockinfo`, {
       method: "POST",
       body: JSON.stringify({
         stocksymbol: stocksymbol,
@@ -129,9 +155,8 @@ export const stockDetail = (stocksymbol) => {
 };
 
 export const stockGrade = (stocksymbol) => {
-  //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://earningswhisper.zapto.org:30000/grade`, {
+    fetch(`http://earningswhisper.zapto.org:3000/grade`, {
       method: "POST",
       body: JSON.stringify({
         stocksymbol: stocksymbol,
@@ -141,27 +166,23 @@ export const stockGrade = (stocksymbol) => {
         "Content-Type": "application/json",
       },
     })
+      .then((response) => response.json())
       .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        dispatch({ type: "GRADE", payload: data });
+        dispatch({ type: "GRADE", payload: data.grade });
       })
       .catch((error) => console.log(error));
   };
 };
 
 export const unLoadStock = () => {
-  //console.log(stocksymbol);
   return (dispatch) => {
-    dispatch({ type: "UNLOAD", payload: [] });
+    dispatch({ type: "UNLOAD", payload: [], grade: null });
   };
 };
 
 export const searchStock = (stocksymbol) => {
-  //console.log(stocksymbol);
   return (dispatch) => {
-    fetch(`http://earningswhisper.zapto.org:30000/search`, {
+    fetch(`http://earningswhisper.zapto.org:3000/search`, {
       method: "POST",
       body: JSON.stringify({
         search: stocksymbol,
@@ -200,7 +221,7 @@ export const loaduser = (user) => {
 
 export const grabuserinfo = (ewallet) => {
   return () => {
-    fetch(`http://earningswhisper.zapto.org:30000/search`, {
+    fetch(`http://earningswhisper.zapto.org:3000/user`, {
       method: "POST",
       body: JSON.stringify({
         ewallet: ewallet,
@@ -218,7 +239,7 @@ export const grabuserinfo = (ewallet) => {
 
 export const getWalBal = (ewallet) => {
   return (dispatch) => {
-    fetch("http://earningswhisper.zapto.org:30000/getWalletBal", {
+    fetch("http://earningswhisper.zapto.org:3000/getWalletBal", {
       method: "POST",
       body: JSON.stringify({
         ewallet: ewallet,
@@ -230,6 +251,53 @@ export const getWalBal = (ewallet) => {
     })
       .then((response) => response.json())
       .then((data) => dispatch({ type: "WALLET_BAL", ewalletBal: data }))
+      .catch((error) => console.log(error));
+  };
+};
+
+export const TransferMoney = (wallet, money, email, desc) => {
+  return (dispatch) => {
+    fetch("http://earningswhisper.zapto.org:3000/transfer", {
+      method: "POST",
+      body: JSON.stringify({
+        amount: money,
+        source_ewallet: wallet,
+        dest: email,
+        desc: desc,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  };
+};
+
+export const loadCard = (wallet) => {
+  return (dispatch) => {
+    fetch("http://earningswhisper.zapto.org:3000/loadCard", {
+      method: "POST",
+      body: JSON.stringify({
+        ewallet: wallet,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) =>
+        dispatch({
+          type: "LOAD_CARD",
+          cardNum: data.card_number,
+          cardCSV: data.cvv,
+          cardExp: `${data.expiration_month}/${data.expiration_year}`,
+          fname: data["ewallet_contact"]["first_name"],
+          lname: data["ewallet_contact"]["last_name"],
+        })
+      )
       .catch((error) => console.log(error));
   };
 };

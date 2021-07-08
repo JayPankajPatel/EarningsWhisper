@@ -11,8 +11,6 @@ import {
 import Logo from "../src/resources/logo";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
-
-import BoxInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -60,7 +58,9 @@ const Login = (props) => {
             style={styles.TextInput}
             placeholder={"Ex. greg"}
             placeholderTextColor="#3C3831"
-            onChangeText={(val) => setChange(val)}
+            onChangeText={(value) =>
+              props.formUpdate({ prop: "username", value })
+            }
           />
         </View>
         {props.isValidUser ? null : (
@@ -82,7 +82,9 @@ const Login = (props) => {
             style={styles.TextInput}
             placeholder={"Ex. momma123"}
             placeholderTextColor="#3C3831"
-            onChangeText={(val) => setChange(val)}
+            onChangeText={(value) =>
+              props.formUpdate({ prop: "password", value })
+            }
           />
         </View>
 

@@ -12,23 +12,21 @@ const EarningContainer = (props) => {
           ticker,
           epsestimate,
           epsactual,
-          companygrowtheps,
-          companygrowthrev,
-          arrow,
+          startdatetimetype,
         }) => {
-          return (
-            <EarningsBar
-              companyName={companyshortname}
-              companyAbbrev={ticker}
-              companyEPS={epsestimate}
-              companyRev={"$3.28"}
-              companyActualEPS={epsactual}
-              companyActualRES={"$5.66"}
-              companyGrowthEPS={"103.3%"}
-              companyGrowthRev={"83.8%"}
-              arrow={"good"}
-            />
-          );
+          if (companyshortname !== undefined) {
+            return (
+              <EarningsBar
+                key={ticker}
+                companyName={companyshortname}
+                ticker={ticker}
+                epsestimate={epsestimate}
+                epsactual={epsactual}
+                startTime={startdatetimetype}
+                arrow={"good"}
+              />
+            );
+          }
         }
       )}
     </ScrollView>

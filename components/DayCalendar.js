@@ -7,33 +7,31 @@ import EarningsBar from "./EarningsBar";
 const DayCalendar = (props) => {
   const [isLoaded, setisLoaded] = useState(false);
   useEffect(() => {
-    props.loadStock("daily");
-    if (Object.keys(props.dailyStocks).length > 0) {
-      setisLoaded(true);
-      console.log(props.dailyStocks);
-    }
+    props.loadDailyStock();
+    setTimeout(() => {
+      if (props.dailyStocks != null) {
+        setisLoaded(true);
+        //console.log(props.dailyStocks);
+      }
+    }, 300);
   }, []);
   return (
     <ScrollView nestedScrollEnabled={true}>
       {isLoaded === true &&
-        props.dailyStocks.time.map(
-          ({ companyshortname, epsactual, epsestimate, ticker }, index) => {
+        props.dailyStocks.map((data, index) => {
+          if (data.companyshortname !== undefined) {
             return (
               <EarningsBar
                 key={index}
-                companyName={companyshortname}
-                companyAbbrev={ticker}
-                companyEPS={epsestimate}
-                companyRev={"$3.28"}
-                companyActualEPS={epsactual}
-                companyActualRES={"$5.66"}
-                companyGrowthEPS={"103.3%"}
-                companyGrowthRev={"83.8%"}
-                arrow={"good"}
+                companyName={data.companyshortname}
+                epsactual={data.epsactual}
+                epsestimate={data.epsestimate}
+                startTime={data.startdatetimetype}
+                ticker={data.ticker}
               />
             );
           }
-        )}
+        })}
     </ScrollView>
   );
 };

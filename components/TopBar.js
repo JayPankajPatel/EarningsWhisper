@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const TopBar = (props) => {
   return (
-    <View style={[styles.navbar]}>
+    <View style={styles.navbar}>
       <LinearGradient
         colors={["#232220", "#443E36", "#312E2A"]}
         style={styles.logoContainer}

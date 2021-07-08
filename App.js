@@ -16,6 +16,7 @@ import { loginReducer } from "./src/reducers/loginReducer";
 import BottomNavBar from "./components/BottomNavBar";
 import Search from "./src/Pages/search";
 import Calendar from "./src/Pages/calendar";
+import Card from "./src/Pages/card";
 
 const Drawer = createDrawerNavigator();
 
@@ -93,6 +94,7 @@ function App() {
               <Drawer.Screen name="wallet" component={Wallet} />
               <Drawer.Screen name="calendar" component={Calendar} />
               <Drawer.Screen name="search" component={Search} />
+              <Drawer.Screen name="card" component={Card} />
             </Drawer.Navigator>
           ) : (
             <MainStackScreen />

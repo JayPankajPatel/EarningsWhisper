@@ -6,48 +6,53 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
-import stock from "../models/stocks.json";
 import EarningContainer from "./EarningContainer";
 import { connect } from "react-redux";
 import * as actions from "../src/actions";
 import Icon from "react-native-vector-icons/Feather";
-import { Transition, Transitioning } from "react-native-reanimated";
+import EarningsBar from "./EarningsBar";
 
 const WeekCalendar = (props) => {
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [isLoaded, setisLoaded] = useState(false);
-  //console.log(Object.keys(props.weeklyStocks).length > 0);
   useEffect(() => {
-    props.loadStock("weekly");
-    if (Object.keys(props.weeklyStocks).length > 0) {
-      setisLoaded(true);
-    }
+    props.loadWeeklyStock();
+    setTimeout(() => {
+      if (props.weeklyStocks != null) {
+        setisLoaded(true);
+        //console.log(props.weeklyStocks);
+      }
+    }, 300);
   }, []);
   return (
     <ScrollView nestedScrollEnabled={true}>
-      {isLoaded === true &&
-        props.weeklyStocks.time.map((data, index) => {
-          return (
-            <View key={index} style={styles.container}>
-              <View style={styles.titleTab}>
-                <Text style={styles.title}>May 24th-28th</Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    setCurrentIndex(index === currentIndex ? null : index);
-                  }}
-                  activeOpacity={0.9}
-                >
-                  <Icon
-                    name={"chevron-down"}
-                    size={40}
-                    style={{ color: "#F5ECDE", marginRight: 5 }}
-                  />
-                </TouchableOpacity>
-              </View>
-              {index === currentIndex && <EarningContainer data={data} />}
-            </View>
-          );
-        })}
+      <View style={styles.container}>
+        <View style={styles.titleTab}>
+          <Text style={styles.title}>
+            {props.weeklyStocks[props.weeklyStocks.length - 1]}
+          </Text>
+          <Icon
+            name={"chevron-down"}
+            size={40}
+            style={{ color: "#F5ECDE", marginRight: 5 }}
+          />
+        </View>
+        {isLoaded === true &&
+          props.weeklyStocks.map((data, index) => {
+            if (data.companyshortname !== undefined) {
+              return (
+                <EarningsBar
+                  key={index}
+                  companyName={data.companyshortname}
+                  epsactual={data.epsactual}
+                  epsestimate={data.epsestimate}
+                  startTime={data.startdatetimetype}
+                  ticker={data.ticker}
+                />
+              );
+            }
+          })}
+      </View>
     </ScrollView>
   );
 };
@@ -63,7 +68,8 @@ const styles = StyleSheet.create({
   title: {
     marginHorizontal: 15,
     marginTop: 10,
-    width: 110,
+    fontSize: 12,
+    width: 320,
     paddingBottom: 4,
     letterSpacing: 1,
     color: "#E9E2D5",
@@ -79,7 +85,6 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     marginHorizontal: 5,
     borderRadius: 10,
-    maxHeight: 200,
   },
 });
 

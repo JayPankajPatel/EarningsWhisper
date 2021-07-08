@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import wallet from "../src/Pages/wallet";
 import calendar from "../src/Pages/calendar";
 import search from "../src/Pages/search";
+import Card from "../src/Pages/card";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,8 +32,8 @@ const BottomNavBar = () => (
       component={wallet}
       options={{
         tabBarLabel: "",
-        tabBarColor: "#CD9F59",
-        tabBarIcon: ({ color }) => <Icon name="home" color={color} size={26} />,
+        tabBarColor: "#323232",
+        tabBarIcon: ({ color }) => <Icon name="home" color={color} size={24} />,
       }}
     />
     <Tab.Screen
@@ -40,9 +41,9 @@ const BottomNavBar = () => (
       component={calendar}
       options={{
         tabBarLabel: "",
-        tabBarColor: "#CD9F59",
+        tabBarColor: "#323232",
         tabBarIcon: ({ color }) => (
-          <Icon name="calendar" color={color} size={26} />
+          <Icon name="calendar" color={color} size={24} />
         ),
       }}
     />
@@ -51,9 +52,20 @@ const BottomNavBar = () => (
       component={search}
       options={{
         tabBarLabel: "",
-        tabBarColor: "#CD9F59",
+        tabBarColor: "#323232",
         tabBarIcon: ({ color }) => (
-          <SearchIcon name="search" color={color} size={26} />
+          <SearchIcon name="search" color={color} size={24} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Card"
+      component={Card}
+      options={{
+        tabBarLabel: "",
+        tabBarColor: "#323232",
+        tabBarIcon: ({ color }) => (
+          <SearchIcon name="credit-card" color={color} size={24} />
         ),
       }}
     />

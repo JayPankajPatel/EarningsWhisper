@@ -4,12 +4,16 @@ import {
   View,
   Text,
   StyleSheet,
+  SafeAreaView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
+import { Directions } from "react-native-gesture-handler";
 import Logo from "../src/resources/logo";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/roboto";
 import { LinearGradient } from "expo-linear-gradient";
+import { createStackNavigator } from "@react-navigation/stack";
 import BoxInput from "../components/TextInput";
 import { AuthContext } from "../components/context";
 import * as actions from "../src/actions";
@@ -82,7 +86,7 @@ const signUp = (props) => {
       question,
       answer,
     });
-    //props.navigation.navigate("Login");
+    props.navigation.navigate("Login");
   };
 
   if (!fontsLoaded) {
@@ -105,8 +109,6 @@ const signUp = (props) => {
           value={props.fname}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "fname", value })}
-          placeholder={"Ex. Mike"}
-          placeholderColor={"#323232"}
         />
 
         <BoxInput
@@ -117,8 +119,6 @@ const signUp = (props) => {
           value={props.lname}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "lname", value })}
-          placeholder={"Ex. Larson"}
-          placeholderColor={"#323232"}
         />
 
         <BoxInput
@@ -129,8 +129,6 @@ const signUp = (props) => {
           value={props.birthdate}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "birthdate", value })}
-          placeholder={"Ex. 05/22/1987"}
-          placeholderColor={"#323232"}
         />
 
         <BoxInput
@@ -141,8 +139,6 @@ const signUp = (props) => {
           value={props.phone}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "phone", value })}
-          placeholder={"Ex. 6264563232"}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
@@ -152,8 +148,6 @@ const signUp = (props) => {
           value={props.address}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "address", value })}
-          placeholder={"Ex. 123 Main Street"}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
@@ -163,19 +157,15 @@ const signUp = (props) => {
           value={props.city}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "city", value })}
-          placeholder={"Ex. Tuscon"}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
           textLabel={"State:"}
           inputBox={styles.TextInputWrapper}
-          value={props._state}
+          value={props.state}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "state", value })}
-          placeholder={"Ex. UT"}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
@@ -185,8 +175,6 @@ const signUp = (props) => {
           value={props.zipcode}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "zipcode", value })}
-          placeholder={"Ex. 34235"}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
@@ -196,78 +184,64 @@ const signUp = (props) => {
           value={props.country}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "country", value })}
-          placeholder={"Ex. US"}
-          placeholderColor={"#323232"}
         />
 
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Username"}
+          textLabel={"USERNAME"}
           inputBox={styles.TextInputWrapper}
           value={props.username}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "username", value })}
-          placeholder={"Ex. greg"}
-          placeholderColor={"#323232"}
         />
 
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Email"}
+          textLabel={"EMAIL"}
           inputBox={styles.TextInputWrapper}
           value={props.email}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "email", value })}
-          placeholder={"Ex. gorg@gmail.com"}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Password"}
+          textLabel={"PASSWORD"}
           inputBox={styles.TextInputWrapper}
           value={props.password}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "password", value })}
-          placeholder={"Ex. ..."}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Confirm Password"}
+          textLabel={"CONFIRM PASSWORD"}
           value={props.confirmPassword}
           inputBox={styles.TextInputWrapper}
           inputStyleText={styles.TextInput}
           setChange={(value) =>
             props.formUpdate({ prop: "confirmPassword", value })
           }
-          placeholder={"Ex..."}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Security Question"}
+          textLabel={"SECURITY QUESTION"}
           inputBox={styles.TextInputWrapper}
           value={props.question}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "question", value })}
-          placeholder={"Ex. What is your favorite dog?"}
-          placeholderColor={"#323232"}
         />
         <BoxInput
           labelBox={styles.TextWrapper}
           styleFontText={styles.Text}
-          textLabel={"Answer"}
+          textLabel={"ANSWER"}
           inputBox={styles.TextInputWrapper}
           value={props.answer}
           inputStyleText={styles.TextInput}
           setChange={(value) => props.formUpdate({ prop: "answer", value })}
-          placeholder={"Ex. Spike"}
-          placeholderColor={"#323232"}
         />
 
         <TouchableOpacity
@@ -309,28 +283,33 @@ const styles = StyleSheet.create({
     color: "#E5BE83",
   },
   TextWrapper: {
-    marginHorizontal: 20,
-    marginVertical: 20,
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
   },
   Text: {
-    fontSize: 15,
-    fontFamily: "Roboto",
+    fontSize: 13,
+    fontFamily: "Roboto_500Medium",
     lineHeight: 18,
+    color: "black",
   },
   TextInputWrapper: {
     display: "flex",
-    flex: 1,
-    borderBottomColor: "#F5ECDE",
-    borderBottomWidth: 1,
-    marginVertical: 2,
-    marginHorizontal: 2,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    marginTop: 1,
+    marginHorizontal: 10,
+    backgroundColor: "transparent",
+    paddingVertical: 1,
+    borderBottomColor: "black",
+    borderBottomWidth: 2,
+    width: 200,
   },
   TextInput: {
-    fontSize: 15,
-    fontFamily: "Roboto",
-    width: 150,
-    borderBottomColor: "#323232",
-    borderBottomWidth: 2,
+    fontSize: 12,
+    fontFamily: "Roboto_500Medium",
+    color: "black",
+    width: 200,
   },
   signUpWrapper: {
     marginTop: 35,
