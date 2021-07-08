@@ -1,0 +1,241 @@
+from flask import Flask, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask import request, jsonify
+from flask_marshmallow import Marshmallow
+from yahoo_earnings_calendar import YahooEarningsCalendar
+from datetime import datetime, timedelta
+from datetime import date
+import csv
+import requests
+
+CSV_URL = 'https://www.alphavantage.co/query?function=EARNINGS_CALENDAR&horizon=3month&apikey=K3VUGXJ70ADU01J0'
+app = Flask("__name_")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://mod:gabriel12@localhost:5432/backend'
+
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
+
+UserStock = db.Table('userstock',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.user_id')),
+    db.Column('stock_id', db.Integer, db.ForeignKey('stock.stock_id'))
+)
+
+class Users(db.Model):
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), unique=False)
+    password = db.Column(db.String(120), unique=False)
+    email = db.Column(db.String(220), unique=False)
+    birthdate = db.Column(db.DateTime)
+    question = db.Column(db.String(220), unique=False)
+    answer = db.Column(db.String(220), unique=False)
+    userPortfolio = db.relationship('Stock', secondary=UserStock, backref=db.backref('buyers', lazy = 'dynamic'))
+
+    def __init__(self, username, password, email, birthdate, question, answer):
+        self.username = username
+        self.password = password
+        self.email = email
+        self.birthdate = birthdate
+        self.question = question
+        self.answer = answer
+
+class Stock(db.Model):
+    stock_id = db.Column(db.Integer, primary_key=True)
+    stocksymbol = db.Column(db.String(10))
+
+    def __init__(self, stocksymbol):
+        self.stocksymbol = stocksymbol
+
+
+class UsersSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Users
+        load_instance = True
+
+class StockSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Stock
+        load_instance = True
+
+def Convert(tup, di):
+    di = dict(tup)
+    return di
+
+def Earnings(Monday, Friday, a):
+    earningsWeeks = []
+    for i in range(a):
+        if (i != 0):
+            Monday += timedelta(weeks = 1)
+            Friday += timedelta(weeks = 1)
+
+        week = [Monday, Friday]
+        date_string1 = week[0].strftime('%b %d %Y %I:%M%p')
+        date_string2 = week[1].strftime('%b %d %Y %I:%M%p')
+        date_from = datetime.strptime(date_string1, '%b %d %Y %I:%M%p')
+        date_to = datetime.strptime(date_string2, '%b %d %Y %I:%M%p')
+        yec = YahooEarningsCalendar()
+        earnings = yec.earnings_between(date_from, date_to)
+        stock_list=[]
+        for e in earnings:
+            item_list=[]
+            index = 0
+            for item in e.items():
+                index += 1
+                if (index == 7):
+                    break
+                else:
+                    item_dict={}
+                    item_list.append(item)
+            stock_list.append(Convert(item_list, item_dict))
+        start = date_string1
+        end = date_string2
+        term = start + ' @@@@ ' + end
+        earningsWeek = {term:stock_list}
+        earningsWeeks.append(earningsWeek)
+
+    return earningsWeeks
+
+def Term():
+    today = datetime.today()
+    n = today.weekday()
+
+    if n > 4:
+        Monday = today + timedelta(days = 7-n)
+    else:
+        Monday = today - timedelta(n)
+
+    Friday = Monday + timedelta(days = 4)
+
+    return [Monday, Friday]
+
+
+@app.route('/signup', methods=['POST'])
+def Signup():
+    data = request.get_json()
+
+    username = data['username']
+    password = data['password']
+    email = data['email']
+    birthdate = data['birthdate']
+    question = data['question']
+    answer = data['answer']
+
+    user = Users(username, password, email, birthdate, question, answer)
+    db.session.add(user)
+    db.session.commit()
+
+    return "Success"
+
+@app.route('/userinfo')
+def Userinfo():
+    user = Users.query.all()
+    user_schema = UsersSchema(many=True)
+    output = user_schema.dump(user)
+    return jsonify({'user' : output})
+
+@app.route('/dailystock', methods=['GET'])
+def DailyStock():
+    now = datetime.now()
+    date_string = now.strftime('%b %d %Y %I:%M%p')
+    date_from = datetime.strptime(date_string, '%b %d %Y %I:%M%p')
+    yec = YahooEarningsCalendar()
+    earnings = yec.earnings_on(date_from)
+    stock_list=[]
+    for e in earnings:
+        item_list=[]
+        index = 0
+        for item in e.items():
+            index += 1
+            if (index == 7):
+                break
+            else:
+                item_dict={}
+                item_list.append(item)
+        stock_list.append(Convert(item_list, item_dict))
+    return jsonify(stock_list)
+
+@app.route('/weeklystock', methods=['GET'])
+def WeeklyStock():
+
+    today = datetime.today()
+    n = today.weekday()
+
+    if (n > 4):
+         Monday = today + timedelta(days = 7-n)
+    else:
+        Monday = today - timedelta(n)
+
+    Friday = Monday + timedelta(days = 4)
+    yec = YahooEarningsCalendar()
+
+    earningsWeeks = []
+    for a in range(3):
+
+        if (a !=0):
+            Monday += timedelta(weeks = 1)
+            Friday += timedelta(weeks = 1)
+
+        week = [Monday, Friday]
+        date_string1 = week[0].strftime('%b %d %Y %I:%M%p')
+        date_string2 = week[1].strftime('%b %d %Y %I:%M%p')
+        date_from = datetime.strptime(date_string1, '%b %d %Y %I:%M%p')
+        date_to = datetime.strptime(date_string2, '%b %d %Y %I:%M%p')
+        earnings = yec.earnings_between(date_from, date_to)
+        stock_list = []
+
+        for e in earnings:
+            item_list = []
+            index = 0
+
+            for item in e.items():
+                index += 1
+                if (index == 7):
+                    break
+                else:
+                    item_dict={}
+                    item_list.append(item)
+            stock_list.append(Convert(item_list, item_dict))
+
+        start = date_string1
+        end = date_string2
+
+
+
+
+
+
+
+@app.route('/stockinfo', methods = ['POST'])
+def stockinfo():
+    stock = request.get_json()
+    stock_symbol = stock['stocksymbol']
+    str_stk = str(stock_symbol)
+    url = 'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol={}&apikey=K3VUGXJ70ADU01J0'.format(str_stk)
+    url2 = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=K3VUGXJ70ADU01J0'.format(str_stk)
+    r = requests.get(url)
+    r2 = requests.get(url2)
+    data = r.json()
+    data = data['annualReports']
+    data = data[0]
+    data2 = r2.json()
+    data_all = {**data, **data2}
+    return jsonify(data_all)
+
+@app.route('/search', methods = ['POST'])
+def search():
+    stock = request.get_json()
+    stock_symbol = stock['search']
+    url ='https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey=K3VUGXJ70ADU01J0'.format(str(stock_symbol))
+    r = requests.get(url)
+    data = r.json()
+
+    return jsonify(data['bestMatches'])
+
+
+
+
+
+if __name__ == '__main__':
+    db.create_all()
+    app.run(host = '0.0.0.0', port = 3000)
+
